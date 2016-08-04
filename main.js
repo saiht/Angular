@@ -20,7 +20,7 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
   *  Application "Carnet d'Adresses"
 
   + Créer un tableau de 8 utilisateurs avec nom, prénom, age, photo,  date de naissances(dd/mm/YYYY),noteBac (de 1 à 20), sexe(boolean), ville (Paris ou Lyon ou Marseille), biographie, langue(fr,en,it ou es) */
-  var utilisateurs = $scope.utilisateurs = [
+ $scope.utilisateurs = [
     {
       nom : "Dujardin",
       prenom : "Jean",
@@ -125,24 +125,37 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
   + Afficher le nombre d'utilisateur ainsi que la moyenne d'age des utilisateurs
   + Afficher à coté du nombre utilisateurs le mot "utilisateurs" avec un "s" ou pas selon le nombre d'utilisateur avec la directive "ng-show"*/
 
-  $scope.moyenneAge = (_.reduce(utilisateurs, function(memo, num){ return memo + num.age; }, 0)/utilisateurs.length).toFixed(0);
+
+  $scope.moyenneAge = function () {
+    return (_.reduce($scope.utilisateurs, function(memo, num){ return memo + num.age; }, 0)/ $scope.utilisateurs.length).toFixed(0);
+  };
+
 
   /*
   + Afficher le mots "Il y a que des mineurs" si il y a uniquement que  "ng-show" ou "ng-if" (._every)*/
 
   //sortBy pour trier le tableau utilisateurs, puis sortedIndex pour trouver renvoyer l'indice du dernier user ayant un age inférieur à 46 ans
-  var vieux = $scope.vieux = _.sortedIndex(_.sortBy(utilisateurs, function(num){ return num.age; }), {age : 46}, 'age');
+  $scope.vieux = function () {
+    return _.sortedIndex(_.sortBy($scope.utilisateurs, function(num){ return num.age; }), {age : 46}, 'age');
+  };
 
   /*
   + Créer un bouton "remove" à chaque utilisateur permettant au click de supprimer l'utilisateur*/
 
-
+  $scope.suppUser = function (user) {
+    var indexUser = $scope.utilisateurs.indexOf(user);
+    $scope.utilisateurs.splice(indexUser, 1);
+  };
 
   /*
-  + Afficher, si il n'y a plus "Plus aucun utilisateurs" et cacher la moyenne d'age
+  + Afficher, si il n'y a plus "Plus aucun utilisateurs" et cacher la moyenne d'age*/
+
+  //OK => dans l'HTML
+
+  /*
   + Créer des boutons radios Lyon, Paris, Marseille pour filtrer les utilisateurs au click de ces bouttons radios
-  + Créer des checkbox de tranches d'age permettant de filtrer par age les utilisateurs incluant les tranches de prix suivantes: -10, 10-18, 18-30 , 30-45 , + de 45
-  Bonus: Les checkbox de tranches d'age prendra en compte le 1ere filtre sur les boutons radios
+  + Créer des checkbox de tranches d'age permettant de filtrer par age les utilisateurs incluant les tranches suivantes: -10, 10-18, 18-30 , 30-45 , + de 45
+  Bonus: Les checkbox de tranches d'age prendra en compte le 1er filtre sur les boutons radios
   + Créer un Datepicker pour filtrer par date de naissances les utilisateurs à partir de cette date : avec Materializecss http://materializecss.com/forms.html#date-picker
   + Créer un input range pour filtrer selon la note au bac de 1 à 20 avec Materialize http://materializecss.com/forms.html#range
   + Créer un formulaire d'ajout d'utilisateurs avec l'ensemble de ces données (on fera la validation plus tard, vous piuvez prendre de l'avance et voir comment on valide un formulaire sous ANgular ici https://openclassrooms.com/courses/validation-de-formulaire-simplifiee-avec-angularjs)

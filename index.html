@@ -56,8 +56,8 @@
               <span class="card-title">Traitement données</span>
               <p ng-show="utilisateurs.length > 1">Nombre d'utilisateurs : {{ utilisateurs.length }}</p>
               <p ng-show="(!utilisateurs.length) || (utilisateurs.length == 1)">Nombre d'utilisateur : {{ utilisateurs.length }}</p>
-              <p ng-hide="!utilisateurs.length">Moyenne d'âge : {{ moyenneAge }} ans</p>
-              <p ng-show="(vieux > utilisateurs.length/2)">Il y a plus de jeunes que de vieux... Soit {{ vieux }} personnes de moins de 46 ans</p>
+              <p ng-hide="!utilisateurs.length">Moyenne d'âge : {{ moyenneAge() }} ans</p>
+              <p ng-show="(vieux() > utilisateurs.length/2)">Il y a plus de jeunes que de vieux... Soit {{ vieux() }} personnes de moins de 46 ans</p>
             </div>
             <div class="card-action">
               <a href="#">This is a link</a>
@@ -72,7 +72,9 @@
             <div class="collection-item">
               <div class="card-image">
                 <img src="{{user.photo}}">
-                <span class="card-title">{{ user.prenom }} {{ user.nom }}</span>
+                <h4>{{ user.prenom }} {{ user.nom }}</h4>
+                <label></label>
+                <button ng-click="suppUser(user)" type="button" name="button"><i class="material-icons">delete</i></button>
               </div>
               <div class="card-content">
                 <p>Date de naissance : {{ user.birth }} - {{ user.age }} ans</p>
