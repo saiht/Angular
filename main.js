@@ -155,10 +155,41 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
   /*
   + Créer des boutons radios Lyon, Paris, Marseille pour filtrer les utilisateurs au click de ces bouttons radios*/
 
+  //OK => dans l'HTML
+
+  /*
+  + Créer des checkbox de tranches d'age permettant de filtrer par age les utilisateurs incluant les tranches suivantes: -10, 10-18, 18-30 , 30-45 , + de 45 */
+
+  var tranches = ['tout', '1020', '2030', '3040', '4050', '50plus'];
+
+  $scope.triTrancheAge = function (tranche) {
+
+  };
+
+  $scope.trancheAge = function (tranche) {
+    switch (tranche) {
+      case '1020':
+
+        break;
+      case '2030':
+
+        break;
+      case '3040':
+
+        break;
+      case '4050':
+
+        break;
+      case '50plus':
+
+        break;
+      default:
+    }
+  };
+
 
 
   /*
-  + Créer des checkbox de tranches d'age permettant de filtrer par age les utilisateurs incluant les tranches suivantes: -10, 10-18, 18-30 , 30-45 , + de 45
   Bonus: Les checkbox de tranches d'age prendra en compte le 1er filtre sur les boutons radios
   + Créer un Datepicker pour filtrer par date de naissances les utilisateurs à partir de cette date : avec Materializecss http://materializecss.com/forms.html#date-picker
   + Créer un input range pour filtrer selon la note au bac de 1 à 20 avec Materialize http://materializecss.com/forms.html#range
