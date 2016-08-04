@@ -134,7 +134,11 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
   var vieux = $scope.vieux = _.sortedIndex(_.sortBy(utilisateurs, function(num){ return num.age; }), {age : 46}, 'age');
 
   /*
-  + Créer un bouton "remove" à chaque utilisateur permettant au click de supprimer l'utilisateur
+  + Créer un bouton "remove" à chaque utilisateur permettant au click de supprimer l'utilisateur*/
+
+
+
+  /*
   + Afficher, si il n'y a plus "Plus aucun utilisateurs" et cacher la moyenne d'age
   + Créer des boutons radios Lyon, Paris, Marseille pour filtrer les utilisateurs au click de ces bouttons radios
   + Créer des checkbox de tranches d'age permettant de filtrer par age les utilisateurs incluant les tranches de prix suivantes: -10, 10-18, 18-30 , 30-45 , + de 45
