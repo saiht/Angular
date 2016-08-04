@@ -153,7 +153,11 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
   //OK => dans l'HTML
 
   /*
-  + Créer des boutons radios Lyon, Paris, Marseille pour filtrer les utilisateurs au click de ces bouttons radios
+  + Créer des boutons radios Lyon, Paris, Marseille pour filtrer les utilisateurs au click de ces bouttons radios*/
+
+
+
+  /*
   + Créer des checkbox de tranches d'age permettant de filtrer par age les utilisateurs incluant les tranches suivantes: -10, 10-18, 18-30 , 30-45 , + de 45
   Bonus: Les checkbox de tranches d'age prendra en compte le 1er filtre sur les boutons radios
   + Créer un Datepicker pour filtrer par date de naissances les utilisateurs à partir de cette date : avec Materializecss http://materializecss.com/forms.html#date-picker

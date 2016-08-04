@@ -59,15 +59,26 @@
               <p ng-hide="!utilisateurs.length">Moyenne d'âge : {{ moyenneAge() }} ans</p>
               <p ng-show="(vieux() > utilisateurs.length/2)">Il y a plus de jeunes que de vieux... Soit {{ vieux() }} personnes de moins de 46 ans</p>
             </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
+
+          </div>
+          <div class="card-action">
+            <p>
+              Trier par ville : <br>
+              <input id="toutes" type="radio" name="name" value="" ng-model="selectedRadioDeMerde">
+              <label for="toutes">Toutes</label><br>
+              <input id="Lyon" type="radio" name="name" value="Lyon" ng-model="selectedRadioDeMerde">
+              <label for="Lyon">Lyon</label><br>
+              <input id="Marseille" type="radio" name="name" value="Marseille" ng-model="selectedRadioDeMerde">
+              <label for="Marseille">Marseille</label><br>
+              <input id="Paris" type="radio" name="name" value="Paris" ng-model="selectedRadioDeMerde">
+              <label for="Paris">Paris</label>
+            </p>
+
           </div>
         </div>
       </div>
 
-      <div class="collection" ng-repeat="user in utilisateurs">
+      <div class="collection" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde">
         <div class="card col m3">
             <div class="collection-item">
               <div class="card-image">
