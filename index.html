@@ -54,8 +54,10 @@
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
               <span class="card-title">Traitement données</span>
-              <p>Nombre d'utilisateurs : {{ utilisateurs.length }}</p>
-              <p>Moyenne d'âge : {{ moyenneAge }} ans</p>
+              <p ng-show="utilisateurs.length > 1">Nombre d'utilisateurs : {{ utilisateurs.length }}</p>
+              <p ng-show="(!utilisateurs.length) || (utilisateurs.length == 1)">Nombre d'utilisateur : {{ utilisateurs.length }}</p>
+              <p ng-hide="!utilisateurs.length">Moyenne d'âge : {{ moyenneAge }} ans</p>
+              <p ng-show="(vieux > utilisateurs.length/2)">Il y a plus de jeunes que de vieux... Soit {{ vieux }} personnes de moins de 46 ans</p>
             </div>
             <div class="card-action">
               <a href="#">This is a link</a>
