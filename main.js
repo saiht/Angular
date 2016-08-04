@@ -72,7 +72,7 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
     {
       nom : "Dujardin2",
       prenom : "Jean2",
-      age : 45,
+      age : 11,
       photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Jean_Dujardin_Cannes_2011.jpg/220px-Jean_Dujardin_Cannes_2011.jpg",
       birth : "19/06/1978",
       noteBac : 10,
@@ -84,7 +84,7 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
     {
       nom : "Merad",
       prenom : "Kad",
-      age : 52,
+      age : 19,
       photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Kad-Le_Petit_Nicolas-_Avant_Premi%C3%A8re.jpg/220px-Kad-Le_Petit_Nicolas-_Avant_Premi%C3%A8re.jpg",
       birth : "27/03/1964",
       noteBac : 14,
@@ -160,33 +160,40 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
   /*
   + Créer des checkbox de tranches d'age permettant de filtrer par age les utilisateurs incluant les tranches suivantes: -10, 10-18, 18-30 , 30-45 , + de 45 */
 
-  var tranches = ['tout', '1020', '2030', '3040', '4050', '50plus'];
 
-  $scope.triTrancheAge = function (tranche) {
+//
+//   $scope.myFilterRegex = function(/^(([1]\d)|(20))$/) {
+//    return regex.test(user.age);
+// };
 
-  };
+$scope.regexAge = /^(([1]\d)|(20))$/;
+var tableau = [];
 
-  $scope.trancheAge = function (tranche) {
-    switch (tranche) {
-      case '1020':
+$scope.trancheAge = function (user) {
+  if ($scope.regexAge.test(user.age)) {
+    tableau.push(user);
+    // $scope.suppUser(user);
+  }
+  $scope.utilisateurs = tableau;
 
-        break;
-      case '2030':
+}
 
-        break;
-      case '3040':
+/*
+for (user of $scope.utilisateurs) {
 
-        break;
-      case '4050':
+  if ($scope.regexAge.test(user.age)) {
+    tableau.push(user);
+    // $scope.suppUser(user);
+  }
+  $scope.utilisateurs = tableau;
 
-        break;
-      case '50plus':
+  // console.log($scope.regexAge.test(user.age));
+  // $scope.utilisateurs.splice(indexUser,1);
+  // console.log($scope.utilisateurs[indexUser].age);
+}*/
 
-        break;
-      default:
-    }
-  };
-
+console.log($scope.utilisateurs);
+console.log(tableau);
 
 
   /*

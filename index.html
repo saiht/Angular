@@ -71,10 +71,11 @@
           <div>
             <p>
               Trier par tranche d'âge : <br>
-              <input id="tout" type="radio" name="name" value="" ng-model="trancheAge('tout')">
+              <input id="tout" type="checkbox" name="name" value="" ng-model="">
               <label for="tout">Tout</label><br>
-              <input id="1020" type="radio" name="name" value="1020" ng-model="trancheAge('1020')">
+              <input id="1020" type="checkbox" name="name" ng-click="{{ trancheAge() }}">
               <label for="1020">10-20 ans</label><br>
+              <!--
               <input id="2030" type="radio" name="name" value="2030" ng-model="trancheAge('2030')">
               <label for="2030">20-30 ans</label><br>
               <input id="3040" type="radio" name="name" value="3040" ng-model="trancheAge('3040')">
@@ -83,12 +84,12 @@
               <label for="4050">40-50 ans</label><br>
               <input id="50plus" type="radio" name="name" value="50plus" ng-model="trancheAge('50plus')">
               <label for="50plus">50 ans et +</label>
-            </p>
+            </p> -->
           </div>
         </div>
       </div>
 
-      <div class="collection" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | filter:trancheAge">
+      <div class="collection" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | trancheAge(user)">
         <div class="card col m3">
             <div class="collection-item">
               <div class="card-image">
