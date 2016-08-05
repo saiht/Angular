@@ -58,38 +58,38 @@
           <div>
             <p>
               Trier par ville : <br>
-              <input id="toutes" type="radio" name="name" value="" ng-model="selectedRadioDeMerde">
+              <input id="toutes" type="radio" name="region" value="" ng-model="selectedRadioDeMerde">
               <label for="toutes">Toutes</label><br>
-              <input id="Lyon" type="radio" name="name" value="Lyon" ng-model="selectedRadioDeMerde">
+              <input id="Lyon" type="radio" name="region" value="Lyon" ng-model="selectedRadioDeMerde">
               <label for="Lyon">Lyon</label><br>
-              <input id="Marseille" type="radio" name="name" value="Marseille" ng-model="selectedRadioDeMerde">
+              <input id="Marseille" type="radio" name="region" value="Marseille" ng-model="selectedRadioDeMerde">
               <label for="Marseille">Marseille</label><br>
-              <input id="Paris" type="radio" name="name" value="Paris" ng-model="selectedRadioDeMerde">
+              <input id="Paris" type="radio" name="region" value="Paris" ng-model="selectedRadioDeMerde">
               <label for="Paris">Paris</label>
             </p>
           </div>
           <div>
             <p>
               Trier par tranche d'âge : <br>
-              <input id="tout" type="checkbox" name="name" value="" ng-model="">
+              <input id="tout" type="radio" name="intervalleAge" value="" ng-model="trancheAge">
               <label for="tout">Tout</label><br>
-              <input id="1020" type="checkbox" name="name" ng-click="{{ trancheAge() }}">
+              <input id="1020" type="radio" name="intervalleAge" value="^(([1][0-9])|(20))$" ng-model="trancheAge">
               <label for="1020">10-20 ans</label><br>
-              <!--
-              <input id="2030" type="radio" name="name" value="2030" ng-model="trancheAge('2030')">
+              <input id="2030" type="radio" name="intervalleAge" value="^(([2][1-9])|(30))$" ng-model="trancheAge">
               <label for="2030">20-30 ans</label><br>
-              <input id="3040" type="radio" name="name" value="3040" ng-model="trancheAge('3040')">
+              <input id="3040" type="radio" name="intervalleAge" value="^(([3][1-9])|(40))$" ng-model="trancheAge">
               <label for="3040">30-40 ans</label><br>
-              <input id="4050" type="radio" name="name" value="4050" ng-model="trancheAge('4050')">
+              <input id="4050" type="radio" name="intervalleAge" value="^([4][1-9])|(50)$" ng-model="trancheAge">
               <label for="4050">40-50 ans</label><br>
-              <input id="50plus" type="radio" name="name" value="50plus" ng-model="trancheAge('50plus')">
-              <label for="50plus">50 ans et +</label>
-            </p> -->
+              <input id="50plus" type="radio" name="intervalleAge" value="^(5[1-9]|[6-9][0-9])$" ng-model="trancheAge">
+              <label for="50plus">50 ans et plus</label><br>
+
+            </p>
           </div>
         </div>
       </div>
 
-      <div class="collection" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | trancheAge(user)">
+      <div class="collection" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge">
         <div class="card col m3">
             <div class="collection-item">
               <div class="card-image">

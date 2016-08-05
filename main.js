@@ -9,6 +9,47 @@ var MyApp = angular.module('MyApp', []);
  * Un contrôleur requiert à 99% la scope
  */
 
+// MyApp.controller('regex', ['$scope', function ($scope) {
+//
+//   $scope.regexAge = /^(([1]\d)|(20))$/;
+//   var tableau = [];
+//
+//   for (var user of $scope.utilisateurs) {
+//
+//     if ($scope.regexAge.test(user.age)) {
+//       tableau.push(user);
+//       // $scope.suppUser(user);
+//     }
+//     $scope.utilisateurs = tableau;
+//
+//     // console.log($scope.regexAge.test(user.age));
+//     // $scope.utilisateurs.splice(indexUser,1);
+//     // console.log($scope.utilisateurs[indexUser].age);
+//   }
+//
+//   console.log($scope.utilisateurs);
+//
+// }]);
+MyApp.filter('orderTab', function(){
+
+        return function(input, regex){
+          var tableau = [];
+          // console.log(regex);
+
+          var regexAge = new RegExp(regex);
+          // console.log(regexAge);
+
+          for (user of input) {
+            if (regexAge.test(user.age)) {
+              tableau.push(user);
+            }
+          }
+
+          return tableau;
+        };
+    });
+
+
 MyApp.controller('MainCtrl', ['$scope', function($scope) {
   //Création d'ue variable title dans la scope
   $scope.title = "Exo 3 Gestion de contacts";
@@ -166,34 +207,9 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
 //    return regex.test(user.age);
 // };
 
-$scope.regexAge = /^(([1]\d)|(20))$/;
-var tableau = [];
-
-$scope.trancheAge = function (user) {
-  if ($scope.regexAge.test(user.age)) {
-    tableau.push(user);
-    // $scope.suppUser(user);
-  }
-  $scope.utilisateurs = tableau;
-
-}
-
-/*
-for (user of $scope.utilisateurs) {
-
-  if ($scope.regexAge.test(user.age)) {
-    tableau.push(user);
-    // $scope.suppUser(user);
-  }
-  $scope.utilisateurs = tableau;
-
-  // console.log($scope.regexAge.test(user.age));
-  // $scope.utilisateurs.splice(indexUser,1);
-  // console.log($scope.utilisateurs[indexUser].age);
-}*/
-
-console.log($scope.utilisateurs);
-console.log(tableau);
+//
+// console.log($scope.utilisateurs);
+// console.log(tableau);
 
 
   /*
