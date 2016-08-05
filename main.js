@@ -55,7 +55,6 @@ MyApp.filter('filtreAge', function () {
         }
       }
     }
-
     return tableau;
   };
 });
