@@ -1,6 +1,9 @@
 /**
  * Déclaration de l'application MyPhonesApp
  */
+
+
+
 var MyApp = angular.module('MyApp', []);
 
 /**
@@ -9,45 +12,54 @@ var MyApp = angular.module('MyApp', []);
  * Un contrôleur requiert à 99% la scope
  */
 
-// MyApp.controller('regex', ['$scope', function ($scope) {
-//
-//   $scope.regexAge = /^(([1]\d)|(20))$/;
-//   var tableau = [];
-//
-//   for (var user of $scope.utilisateurs) {
-//
-//     if ($scope.regexAge.test(user.age)) {
-//       tableau.push(user);
-//       // $scope.suppUser(user);
-//     }
-//     $scope.utilisateurs = tableau;
-//
-//     // console.log($scope.regexAge.test(user.age));
-//     // $scope.utilisateurs.splice(indexUser,1);
-//     // console.log($scope.utilisateurs[indexUser].age);
-//   }
-//
-//   console.log($scope.utilisateurs);
-//
-// }]);
 MyApp.filter('orderTab', function(){
 
-        return function(input, regex){
-          var tableau = [];
-          // console.log(regex);
+  return function(input, regex){
+    var tableau = [];
+    // console.log(regex);
 
-          var regexAge = new RegExp(regex);
-          // console.log(regexAge);
+    var regexAge = new RegExp(regex);
+    // console.log(regexAge);
 
-          for (user of input) {
-            if (regexAge.test(user.age)) {
-              tableau.push(user);
-            }
-          }
+    for (user of input) {
+      if (regexAge.test(user.age)) {
+        tableau.push(user);
+      }
+    }
 
-          return tableau;
-        };
-    });
+    return tableau;
+  };
+});
+
+MyApp.filter('filtreAge', function () {
+  return function(input, date){
+    var tableau = [];
+    var indexUser = input.indexOf(user);
+    var anneeBirth;
+    // console.log(date);
+
+    if (!angular.isDefined(date)) {
+      tableau = input;
+      return tableau;
+    }
+    else {
+      date = new Date(date).getFullYear();
+      // console.log(date);
+      for (user of input) {
+        anneeBirth = parseInt(user.birth.substr(6,4));
+        // console.log(anneeBirth);
+        indexUser = input.indexOf(user);
+        // console.log(indexUser);
+        if (anneeBirth>date) {
+          tableau.push(user);
+        }
+      }
+    }
+    console.log("Après la boucle for" + tableau);
+
+    return tableau;
+  };
+});
 
 
 MyApp.controller('MainCtrl', ['$scope', function($scope) {
@@ -214,7 +226,13 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
 
   /*
   Bonus: Les checkbox de tranches d'age prendra en compte le 1er filtre sur les boutons radios
-  + Créer un Datepicker pour filtrer par date de naissances les utilisateurs à partir de cette date : avec Materializecss http://materializecss.com/forms.html#date-picker
+  + Créer un Datepicker pour filtrer par date de naissances les utilisateurs à partir de cette date : avec Materializecss http://materializecss.com/forms.html#date-picker*/
+
+
+
+
+
+  /*
   + Créer un input range pour filtrer selon la note au bac de 1 à 20 avec Materialize http://materializecss.com/forms.html#range
   + Créer un formulaire d'ajout d'utilisateurs avec l'ensemble de ces données (on fera la validation plus tard, vous piuvez prendre de l'avance et voir comment on valide un formulaire sous ANgular ici https://openclassrooms.com/courses/validation-de-formulaire-simplifiee-avec-angularjs)
   + Bonus: Externaliser les users dans un fichier json et chargé ce fichier en AJAX à l'aide de l'opérateur $http

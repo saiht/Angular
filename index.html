@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="bower_components/animate.css/animate.min.css" media="screen"/>
     <link rel="stylesheet" href="bower_components/materialize/dist/css/materialize.min.css" media="screen"/>
+    <!-- Angular Material style sheet -->
+
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,12 +27,13 @@
     <script src="bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
     <script src="main.js" charset="utf-8"></script>
     <style media="screen">
-    .card .card-image img {
-      display: inline-block;
-      left: 40%;
-      width: 20%;
-    }
+      .card .card-image img {
+        display: inline-block;
+        left: 40%;
+        width: 20%;
+      }
     </style>
+
   </head>
 
   <!-- Pour angular, tout le body est une application qui se nomme MyPhonesApp -->
@@ -83,13 +87,16 @@
               <label for="4050">40-50 ans</label><br>
               <input id="50plus" type="radio" name="intervalleAge" value="^(5[1-9]|[6-9][0-9])$" ng-model="trancheAge">
               <label for="50plus">50 ans et plus</label><br>
-
             </p>
           </div>
         </div>
       </div>
 
-      <div class="collection" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge">
+      <input type="date" ng-change="filtre" ng-model="filtre">
+
+
+
+      <div class="collection" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre" >
         <div class="card col m3">
             <div class="collection-item">
               <div class="card-image">
