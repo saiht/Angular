@@ -55,7 +55,6 @@ MyApp.filter('filtreAge', function () {
         }
       }
     }
-    console.log("Après la boucle for" + tableau);
 
     return tableau;
   };
