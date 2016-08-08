@@ -120,7 +120,9 @@
 
       <input type="date" ng-change="filtre" ng-model="filtre">
 
-      <div class="collection" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre | triNoteBacFilter:triNoteBac | mineur:tousMineurs" >
+      <input type="text" name="name" placeholder="Chercher un nom ou un prénom dans les cards" ng-model="triNomPrenom">
+
+      <div class="collection" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre | triNoteBacFilter:triNoteBac | mineur:tousMineurs | filter:{triNomPrenom.nom, triNomPrenom.prenom}" >
         <div class="card col m3">
             <div class="collection-item">
               <div class="card-image">
@@ -150,10 +152,10 @@
         <form class="col s12" ng-submit="add()">
            <div class="row">
              <div class="input-field col s6">
-               <input ng-model="sexe" id="mec" value="true" name="sexe" type="radio" class="validate">
-               <label for="mec">Homme</label>
-               <input  ng-model="sexe" id="nana"  value="false" name="sexe" type="radio" class="validate">
-               <label for="nana">Femme</label>
+               <input ng-model="sexe" id="keum" value="true" name="sexe" type="radio" class="validate">
+               <label for="keum">Homme</label>
+               <input  ng-model="sexe" id="meuf" value="false" name="sexe" type="radio" class="validate">
+               <label for="meuf">Femme</label>
              </div>
              <div class="clearfix clear"> </div>
              <div class="input-field col s6">

@@ -98,7 +98,6 @@ MyApp.filter('mineur',function () {
 });
 
 MyApp.filter('drapeau',function(){
-
    return function(langue){
      switch (langue) {
        case "es":
@@ -114,6 +113,15 @@ MyApp.filter('drapeau',function(){
    };
 });
 
+MyApp.filter('triNP', function ($scope, $filter) {
+  var tableau = [];
+  return function (input, triNomPrenom) {
+    var nom = input.nom;
+    var prenom = input.prenom;
+    return $filter('filter')(input, {nom:$scope.triNomPrenom, prenom:$scope.triNomPrenom});
+  };
+});
+
 
 MyApp.controller('MainCtrl', ['$scope', function($scope) {
   //Création d'ue variable title dans la scope
@@ -122,7 +130,13 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
   * Les evenements et directives sous AngularJS
   */
   /*
-  *  Application "Carnet d'Adresses"
+  *  Application "Carnet d'Adresses"*/
+
+
+$scope.triNomPrenom = [nom, prenom];
+
+
+  /*
 
   + Créer un tableau de 8 utilisateurs avec nom, prénom, age, photo,  date de naissances(dd/mm/YYYY),noteBac (de 1 à 20), sexe(boolean), ville (Paris ou Lyon ou Marseille), biographie, langue(fr,en,it ou es) */
  $scope.utilisateurs = [
