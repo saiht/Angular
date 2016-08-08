@@ -10,14 +10,9 @@ var MyApp = angular.module('MyApp', []);
  * Un contrôleur requiert à 99% la scope
  */
 MyApp.filter('orderTab', function(){
-
   return function(input, regex){
     var tableau = [];
-    // console.log(regex);
-
     var regexAge = new RegExp(regex);
-    // console.log(regexAge);
-
     for (user of input) {
       if (regexAge.test(user.age)) {
         tableau.push(user);
@@ -32,8 +27,6 @@ MyApp.filter('filtreAge', function () {
     var tableau = [];
     var indexUser = input.indexOf(user);
     var anneeBirth;
-    // console.log(date);
-
     if (!angular.isDefined(date)) {
       tableau = input;
       return tableau;
@@ -58,7 +51,6 @@ MyApp.filter('filtreAge', function () {
 MyApp.filter('triNoteBacFilter', function () {
   return function(input, triNoteBac){
     var tableau = [];
-
     if (!angular.isDefined(triNoteBac)) {
       tableau = input;
       return tableau;
@@ -76,7 +68,6 @@ MyApp.filter('triNoteBacFilter', function () {
 });
 
 MyApp.filter('sexe',function(){
-
   return function(sexe){
       if(sexe === false){
         return "Femme";
@@ -86,12 +77,9 @@ MyApp.filter('sexe',function(){
 });
 
 MyApp.filter('mineur',function () {
-
   return function (input, checked) {
-
     var majeurs = [];
     var mineurs = [];
-
     // Rangement des majeurs et mineurs
     for (user of input) {
       if (user.age >= 18) {
@@ -101,17 +89,12 @@ MyApp.filter('mineur',function () {
         mineurs.push(user);
       }
     }
-
     //Si switch coché
     if (checked == undefined || checked == false) {
       return mineurs;
     }
     return majeurs;
   };
-
-
-
-
 });
 
 MyApp.filter('drapeau',function(){
@@ -336,7 +319,7 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
    // Tuto Moment: http://www.lafermeduweb.net/billet/moment-js-manipuler-les-dates-javascript-simplement-1246.html
 
 //   Lien: http://www.tutoriel-angularjs.fr/tutoriel/2-utilisation-complete-d-angularjs/2-les-filtres*/
-   
+
    /*
 		+ Cacher les cards des users quand il y en a pas et y mettre un petite message en rouge: Aucun utilisateurs trouvé :( (attention aux filtres!!)
     + Ajouter 1 classe css "warning" si l'utilisateur n'a pas eu la moyenne au bac: Directive "ng-class"
