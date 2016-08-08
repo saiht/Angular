@@ -2,8 +2,6 @@
  * Déclaration de l'application MyPhonesApp
  */
 
-
-
 var MyApp = angular.module('MyApp', []);
 
 /**
@@ -11,9 +9,6 @@ var MyApp = angular.module('MyApp', []);
  * La scope est un objet entre le html et le javascript pour contrôler la DOM
  * Un contrôleur requiert à 99% la scope
  */
-
-
-
 MyApp.filter('orderTab', function(){
 
   return function(input, regex){
@@ -80,6 +75,62 @@ MyApp.filter('triNoteBacFilter', function () {
   };
 });
 
+MyApp.filter('sexe',function(){
+
+  return function(sexe){
+      if(sexe === false){
+        return "Femme";
+      }
+      return  "Homme";
+   };
+});
+
+MyApp.filter('mineur',function () {
+
+  return function (input, checked) {
+
+    var majeurs = [];
+    var mineurs = [];
+
+    // Rangement des majeurs et mineurs
+    for (user of input) {
+      if (user.age >= 18) {
+        majeurs.push(user);
+      }
+      else {
+        mineurs.push(user);
+      }
+    }
+
+    //Si switch coché
+    if (checked == undefined || checked == false) {
+      return mineurs;
+    }
+    return majeurs;
+  };
+
+
+
+
+});
+
+MyApp.filter('drapeau',function(){
+
+   return function(langue){
+     switch (langue) {
+       case "es":
+        return "http://www.europetrotteur.com/images/drapeau_Espagne.png";
+       case "en":
+        return "http://www.europetrotteur.com/images/drapeau_United%20Kingdom.png";
+       case "it":
+        return "http://www.europetrotteur.com/images/drapeau_Italie.png";
+       case "fr":
+          return "http://www.europetrotteur.com/images/drapeau_France.png";
+       default:
+     }
+   };
+});
+
 
 MyApp.controller('MainCtrl', ['$scope', function($scope) {
   //Création d'ue variable title dans la scope
@@ -87,7 +138,6 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
   /**
   * Les evenements et directives sous AngularJS
   */
-
   /*
   *  Application "Carnet d'Adresses"
 
@@ -99,7 +149,7 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
       age : 45,
       photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Jean_Dujardin_Cannes_2011.jpg/220px-Jean_Dujardin_Cannes_2011.jpg",
       birth : "19/06/1972",
-      noteBac : 10,
+      noteBac : 5,
       sexe : true,
       ville : "Paris",
       bio : "Après une enfance dans les Yvelines à Plaisir et un baccalauréat A3 (philosophie et arts plastiques), Jean Dujardin débute dans la vie active en tant que serrurier dans l'entreprise de son père, Jacques Dujardin.",
@@ -123,7 +173,7 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
       age : 30,
       photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Emilia_Clarke_2013_%28Straighten_Colors_2%29.jpg/220px-Emilia_Clarke_2013_%28Straighten_Colors_2%29.jpg",
       birth : "26/10/1986",
-      noteBac : 10,
+      noteBac : 9,
       sexe : false,
       ville : "Lyon",
       bio : "Emilia Clarke a grandi dans le Berkshire. Son père est ingénieur du son dans un théâtre4, sa mère femme d'affaires, et son plus jeune frère étudie la politique. Elle a commencé à jouer à l'âge de 3 ans après avoir vu la comédie musicale Show Boat sur laquelle son père travaillait à l'époque. Elle a étudié à la St Edward's School (2000-2005) et Rye St Antony School (Oxford). Emilia Clarke est diplômée en 2009 du Drama Centre London (en), école de théâtre qu'elle a intégrée à 18 ans.",
@@ -156,7 +206,7 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
     {
       nom : "Merad",
       prenom : "Kad",
-      age : 19,
+      age : 17,
       photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Kad-Le_Petit_Nicolas-_Avant_Premi%C3%A8re.jpg/220px-Kad-Le_Petit_Nicolas-_Avant_Premi%C3%A8re.jpg",
       birth : "27/03/1964",
       noteBac : 14,
@@ -247,24 +297,60 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
   Bonus: Les checkbox de tranches d'age prendra en compte le 1er filtre sur les boutons radios
   + Créer un Datepicker pour filtrer par date de naissances les utilisateurs à partir de cette date : avec Materializecss http://materializecss.com/forms.html#date-picker*/
 
-
-
-
-
   /*
   + Créer un input range pour filtrer selon la note au bac de 1 à 20 avec Materialize http://materializecss.com/forms.html#range*/
 
+  /*
+  + Créer un formulaire d'ajout d'utilisateurs avec l'ensemble de ces données (on fera la validation plus tard, vous pouvez prendre de l'avance et voir comment on valide un formulaire sous ANgular ici
+  https://openclassrooms.com/courses/validation-de-formulaire-simplifiee-avec-angularjs)*/
 
-  console.log(parseInt($scope.triNoteBac));
+  $scope.add = function () {
+
+    $scope.utilisateurs.push({
+              nom: $scope.nom,
+              prenom: $scope.prenom,
+              age: parseInt($scope.age),
+              photo: $scope.photo,
+              birthday: $scope.birth,
+              noteBac: parseInt($scope.noteBac),
+              sexe: $scope.sexe,
+              ville: $scope.ville,
+              biographie: $scope.bio,
+              langue: $scope.langue
+           });
+
+           $scope.nom =  $scope.sexe = $scope.ville =  $scope.biographie = $scope.prenom = $scope.age = $scope.photo = $scope.birth = $scope.noteBac = "";
+
+
+           moyenneAge();
+  };
 
 
 
   /*
-  + Créer un formulaire d'ajout d'utilisateurs avec l'ensemble de ces données (on fera la validation plus tard, vous piuvez prendre de l'avance et voir comment on valide un formulaire sous ANgular ici https://openclassrooms.com/courses/validation-de-formulaire-simplifiee-avec-angularjs)
+
   + Bonus: Externaliser les users dans un fichier json et chargé ce fichier en AJAX à l'aide de l'opérateur $http
   +
-  */
+*/
 
+   // Tuto Moment: http://www.lafermeduweb.net/billet/moment-js-manipuler-les-dates-javascript-simplement-1246.html
 
+//   Lien: http://www.tutoriel-angularjs.fr/tutoriel/2-utilisation-complete-d-angularjs/2-les-filtres*/
+   
+   /*
+		+ Cacher les cards des users quand il y en a pas et y mettre un petite message en rouge: Aucun utilisateurs trouvé :( (attention aux filtres!!)
+    + Ajouter 1 classe css "warning" si l'utilisateur n'a pas eu la moyenne au bac: Directive "ng-class"
+    + Créer un filtre qui selon la langue affiche le drapeau du pays pour chaque utilisateurs
+		+ Créer un bouton Switch permettant de filtrer les utilisateurs majeurs ou les utilisateurs mineurs
+   	+ Créer un moteur de recherche instantanée de recherche de d'utilisateurs sur le nom et le prénom
+   	+ Ajouter aux utilisateurs le code postal
+    + Ajouter un champ département permùettant de filtrer les utilisateurs par départements
+    + AJouter un icon "access_time" a coté de chaque utilisateur si ce mois courant est le mois d'anniversaire de l'utilisateur <i class="material-icons">access_time</i> (utiliser moment)
+    + Créer une liste déroulante me permettant de trier par nom, par prénom, par age, par note au bac ou par ville
+    + Créer un bouton
+    + Créer une notification (Toast) quand un utilisateurs se crée http://materializecss.com/dialogs.html#toast
+    + Ajouter pour chaque utilisateur des coordonnées GPS avec longitude et latitude
+    +
+    */
 
 }]);

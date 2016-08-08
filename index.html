@@ -22,10 +22,11 @@
     <!-- My librairies underscore animate moment materialize angular -->
     <script src="bower_components/angular/angular.js" charset="utf-8"></script>
     <script src="bower_components/moment/moment.js" charset="utf-8"></script>
-    <script src="bower_components/materialize/materialize.js" charset="utf-8"></script>
+    <script src="bower_components/materialize/dist/js/materialize.min.js" charset="utf-8"></script>
     <script src="bower_components/underscore/underscore-min.js" charset="utf-8"></script>
     <script src="bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
     <script src="main.js" charset="utf-8"></script>
+
     <style media="screen">
       .card .card-image img {
         display: inline-block;
@@ -53,7 +54,7 @@
             <div class="card-content white-text">
               <span class="card-title">Traitement données</span>
               <p ng-show="utilisateurs.length > 1">Nombre d'utilisateurs : {{ utilisateurs.length }}</p>
-              <p ng-show="(!utilisateurs.length) || (utilisateurs.length == 1)">Nombre d'utilisateur : {{ utilisateurs.length }}</p>
+              <p ng-show="utilisateurs.length == 0">Aucun utilisateur trouvé</p>
               <p ng-hide="!utilisateurs.length">Moyenne d'âge : {{ moyenneAge() }} ans</p>
               <p ng-show="(vieux() > utilisateurs.length/2)">Il y a plus de jeunes que de vieux... Soit {{ vieux() }} personnes de moins de 46 ans</p>
             </div>
@@ -91,11 +92,25 @@
               <input id="50plus" type="radio" name="intervalleAge" value="^(5[1-9]|[6-9][0-9])$" ng-model="trancheAge">
               <label for="50plus">50 ans et plus</label><br>
             </p>
+            <div class="switch">
+              <p>
+                Trier par majorité
+              </p>
+              <label>
+                Mineurs
+                <input type="checkbox" value="false" ng-model="tousMineurs">
+                <span class="lever"></span>
+                Majeurs
+              </label>
+            </div>
           </div>
         </div>
       </div>
       <div class="row">
         <form action="#">
+          <p>
+            Trier par note de bac
+          </p>
           <p class="range-field">
             <input value="0" ng-model="triNoteBac" type="range" id="triNoteBac" min="0" max="20" />
             <label for="triNoteBac">Note du bac</label>
@@ -105,9 +120,7 @@
 
       <input type="date" ng-change="filtre" ng-model="filtre">
 
-
-
-      <div class="collection" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre | triNoteBacFilter:triNoteBac" >
+      <div class="collection" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre | triNoteBacFilter:triNoteBac | mineur:tousMineurs" >
         <div class="card col m3">
             <div class="collection-item">
               <div class="card-image">
@@ -118,10 +131,10 @@
               </div>
               <div class="card-content">
                 <p>Date de naissance : {{ user.birth }} - {{ user.age }} ans</p>
-                <p>Sexe : {{ user.sexe }}</p>
+                <p>Sexe : {{ user.sexe | sexe}}</p>
                 <p>Ville : {{ user.ville }}</p>
-                <p>Note du Baccalauréat : {{ user.noteBac }}/20</p>
-                <p>Langue : {{ user.langue }}</p>
+                <p ng-class="{red:user.noteBac < 10}">Note du Baccalauréat : {{ user.noteBac }}/20</p>
+                <p>Langue : <img src="{{ user.langue | drapeau }}"/></p>
               </div>
               <div class="card-content">
                 <h3>Biographie</h3>
@@ -131,6 +144,57 @@
             </div>
           </div>
         </div>
+
+        <div class="row">
+
+        <form class="col s12" ng-submit="add()">
+           <div class="row">
+             <div class="input-field col s6">
+               <input ng-model="sexe" id="mec" value="true" name="sexe" type="radio" class="validate">
+               <label for="mec">Homme</label>
+               <input  ng-model="sexe" id="nana"  value="false" name="sexe" type="radio" class="validate">
+               <label for="nana">Femme</label>
+             </div>
+             <div class="clearfix clear"> </div>
+             <div class="input-field col s6">
+               <input ng-model="prenom" ng-trim="true" id="first_name" type="text" class="validate" placeholder="Prenom">
+             </div>
+             <div class="input-field col s6">
+               <input ng-model="nom" ng-trim="true" id="last_name" type="text" class="validate" placeholder="Nom">
+             </div>
+             <div class="input-field col s3">
+               <input ng-model="age" ng-trim="true" id="age" type="text" class="validate" placeholder="Age">
+             </div>
+             <div class="input-field col s6">
+               <input ng-model="photo" ng-trim="true" id="photo" type="text" class="validate" placeholder="Photo">
+             </div>
+             <div class="input-field col s6">
+               <input ng-model="birth" ng-trim="true" id="dob" type="date" class="validate">
+             </div>
+             <div class="input-field col s6">
+               <input ng-model="ville" id="lyon" value="Lyon" name="city" type="radio" class="validate">
+               <label for="lyon">Lyon</label>
+               <input ng-model="ville" id="paris" value="Paris" name="city" type="radio" class="validate">
+               <label for="paris">Paris</label>
+               <input ng-model="ville" id="marseille" value="Marseille" name="city" type="radio" class="validate">
+               <label for="marseille">Marseille</label>
+             </div>
+             <div class="input-field col s6">
+               <input ng-model="noteBac" ng-trim="true" id="bac" type="text" class="validate" placeholder="Note Bac">
+             </div>
+             <div class="input-field col s6">
+               <textarea ng-model="bio" ng-trim="true" id="biographie" class="materialize-textarea" placeholder="Biographie"></textarea>
+             </div>
+             <div class="input-field col s6">
+               <textarea ng-model="langue" ng-trim="true" id="langue" class="materialize-textarea" placeholder="Langue"></textarea>
+             </div>
+             <div class="input-field col 12">
+              <button type="submit" class="waves-effect waves-light btn" name="button">Enregistrer cet utilisaturs</button>
+             </div>
+           </div>
+         </form>
+
+     </div>
 
     </div>   <!-- Fin de container MainCtrl -->
   </body>
