@@ -12,6 +12,8 @@ var MyApp = angular.module('MyApp', []);
  * Un contrôleur requiert à 99% la scope
  */
 
+
+
 MyApp.filter('orderTab', function(){
 
   return function(input, regex){
@@ -26,7 +28,6 @@ MyApp.filter('orderTab', function(){
         tableau.push(user);
       }
     }
-
     return tableau;
   };
 });
@@ -51,6 +52,26 @@ MyApp.filter('filtreAge', function () {
         indexUser = input.indexOf(user);
         // console.log(indexUser);
         if (anneeBirth>date) {
+          tableau.push(user);
+        }
+      }
+    }
+    return tableau;
+  };
+});
+
+MyApp.filter('triNoteBacFilter', function () {
+  return function(input, triNoteBac){
+    var tableau = [];
+
+    if (!angular.isDefined(triNoteBac)) {
+      tableau = input;
+      return tableau;
+    }
+    else {
+      for (user of input) {
+        // console.log("Note user et range value : " + user.noteBac,triNoteBac);
+        if (user.noteBac >= triNoteBac) {
           tableau.push(user);
         }
       }
@@ -231,7 +252,14 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
 
 
   /*
-  + Créer un input range pour filtrer selon la note au bac de 1 à 20 avec Materialize http://materializecss.com/forms.html#range
+  + Créer un input range pour filtrer selon la note au bac de 1 à 20 avec Materialize http://materializecss.com/forms.html#range*/
+
+
+  console.log(parseInt($scope.triNoteBac));
+
+
+
+  /*
   + Créer un formulaire d'ajout d'utilisateurs avec l'ensemble de ces données (on fera la validation plus tard, vous piuvez prendre de l'avance et voir comment on valide un formulaire sous ANgular ici https://openclassrooms.com/courses/validation-de-formulaire-simplifiee-avec-angularjs)
   + Bonus: Externaliser les users dans un fichier json et chargé ce fichier en AJAX à l'aide de l'opérateur $http
   +

@@ -94,12 +94,20 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <form action="#">
+          <p class="range-field">
+            <input value="0" ng-model="triNoteBac" type="range" id="triNoteBac" min="0" max="20" />
+            <label for="triNoteBac">Note du bac</label>
+          </p>
+        </form>
+      </div>
 
       <input type="date" ng-change="filtre" ng-model="filtre">
 
 
 
-      <div class="collection" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre" >
+      <div class="collection" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre | triNoteBacFilter:triNoteBac" >
         <div class="card col m3">
             <div class="collection-item">
               <div class="card-image">
