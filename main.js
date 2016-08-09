@@ -246,6 +246,7 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
 
   //mois anniversaire ng show
   $scope.moisAnnif = function (user) {
+    // console.log(user.birth);
       var mois = parseInt(user.birth.substr(3,2));
       var moisCourant = new Date().getMonth()+1;
 
