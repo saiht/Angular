@@ -129,8 +129,7 @@
         <input type="text" name="NP" placeholder="Chercher un nom ou un prénom dans les cards" ng-model="triNomPrenom">
         <input type="text" name="departement" placeholder="Chercher un département par Code Postal dans les cards" ng-model="departement">
 
-
-        <div>
+        <!-- <div>
           <p>
             Trier par :
           </p>
@@ -142,6 +141,20 @@
             <option value="search.noteBac">Note au bac</option>
             <option value="search.ville">Ville</option>
           </select>
+        </div> -->
+
+      </div>  <!-- Test toast qui ne fonctionne pas -->
+      <div class="row">
+        <div class="col s4" input-field>
+          <input id="message" type="text" ng-model="dummyInputs.message" ng-init="dummyInputs.message = 'I\'m a message'">
+          <label for="message">Message</label>
+        </div>
+        <div class="col s2" input-field>
+          <input id="toastDuration" type="text" ng-model="dummyInputs.duration" ng-init="dummyInputs.duration = 1000">
+          <label for="toastDuration">Toast duration</label>
+        </div>
+        <div class="input-field col s4">
+          <a class="waves-effect waves-light btn" message="{{dummyInputs.message}}" duration="{{dummyInputs.duration}}" toast='click'>Toast!</a>
         </div>
       </div>
 

@@ -2,6 +2,7 @@
  * Déclaration de l'application MyPhonesApp
  */
 
+
 var MyApp = angular.module('MyApp', []);
 
 /**
