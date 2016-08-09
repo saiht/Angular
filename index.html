@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="bower_components/animate.css/animate.min.css" media="screen"/>
     <link rel="stylesheet" href="bower_components/materialize/dist/css/materialize.min.css" media="screen"/>
+    <link rel="stylesheet" href="bower_components/angular-materialize/css/style.css" media="screen" >
     <!-- Angular Material style sheet -->
 
 
@@ -22,9 +23,9 @@
     <!-- My librairies underscore animate moment materialize angular -->
     <script src="bower_components/angular/angular.js" charset="utf-8"></script>
     <script src="bower_components/moment/moment.js" charset="utf-8"></script>
-    <script src="bower_components/materialize/dist/js/materialize.min.js" charset="utf-8"></script>
     <script src="bower_components/underscore/underscore-min.js" charset="utf-8"></script>
     <script src="bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+    <script src="bower_components/angular-materialize/src/angular-materialize.js" charset="utf-8"></script>
     <script src="main.js" charset="utf-8"></script>
 
     <style media="screen">
@@ -32,6 +33,9 @@
         display: inline-block;
         left: 40%;
         width: 20%;
+      }
+      #merde {
+        display: block;
       }
     </style>
 
@@ -118,12 +122,29 @@
         </form>
       </div>
 
-      <input type="date" ng-change="filtre" ng-model="filtre">
+      <div class="row">
+        <input type="date" ng-change="filtre" ng-model="filtre">
 
-      <input type="text" name="NP" placeholder="Chercher un nom ou un prénom dans les cards" ng-model="triNomPrenom">
-      <input type="text" name="departement" placeholder="Chercher un département par Code Postal dans les cards" ng-model="departement">
+        <input type="text" name="NP" placeholder="Chercher un nom ou un prénom dans les cards" ng-model="triNomPrenom">
+        <input type="text" name="departement" placeholder="Chercher un département par Code Postal dans les cards" ng-model="departement">
 
-      <div class="collection" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre | triNoteBacFilter:triNoteBac | mineur:tousMineurs | filter:{NomPrenom:triNomPrenom} | filter:{codeP:departement}" >
+
+        <div>
+          <p>
+            Où es-tu?
+          </p>
+          <select id="merde" ng-model="select">
+            <option value="" disabled selected>EH OH!</option>
+            <option value="search.nom">Nom</option>
+            <option value="search.prenom">Prénom</option>
+            <option value="search.age">Âge</option>
+            <option value="search.noteBac">Note au bac</option>
+            <option value="search.ville">Ville</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="collection" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre | triNoteBacFilter:triNoteBac | mineur:tousMineurs | filter:{NomPrenom:triNomPrenom} | filter:{codeP:departement} |filter:search" >
         <div class="card col m3">
             <div class="collection-item"><i ng-show="moisAnnif(user)" class="material-icons">access_time</i>
               <div class="card-image">
