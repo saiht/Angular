@@ -132,10 +132,10 @@
 
         <div>
           <p>
-            Où es-tu?
+            Trier par :
           </p>
-          <select id="merde" ng-model="select">
-            <option value="" disabled selected>EH OH!</option>
+          <select id="merde" ng-change="search" ng-model="search">
+            <option value="" disabled selected>Choisir une option</option>
             <option value="search.nom">Nom</option>
             <option value="search.prenom">Prénom</option>
             <option value="search.age">Âge</option>
@@ -146,8 +146,9 @@
       </div>
 
       <div class="row">
-        <div class="collection col s6" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre | triNoteBacFilter:triNoteBac | mineur:tousMineurs | filter:{NomPrenom:triNomPrenom} | filter:{codeP:departement} |filter:search" >
+        <div class="collection col s6" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre | triNoteBacFilter:triNoteBac | mineur:tousMineurs | filter:{NomPrenom:triNomPrenom} | filter:{codeP:departement} |filter:{nom:search.nom, prenom:search.prenom, age:search.age,ville:search.ville,noteBac:search.noteBac}" >
           <div class="card col s12">
+            <i ng-show="moisAnnif(user)" class="material-icons">cake</i>
             <div class="card-image waves-effect waves-block waves-light">
               <img class="activator" src="{{ user.photo }}">
             </div>
