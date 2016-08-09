@@ -129,19 +129,19 @@
         <input type="text" name="NP" placeholder="Chercher un nom ou un prénom dans les cards" ng-model="triNomPrenom">
         <input type="text" name="departement" placeholder="Chercher un département par Code Postal dans les cards" ng-model="departement">
 
-        <!-- <div>
+        <div>
           <p>
             Trier par :
           </p>
           <select id="merde" ng-change="search" ng-model="search">
             <option value="" disabled selected>Choisir une option</option>
-            <option value="search.nom">Nom</option>
-            <option value="search.prenom">Prénom</option>
-            <option value="search.age">Âge</option>
-            <option value="search.noteBac">Note au bac</option>
-            <option value="search.ville">Ville</option>
+            <option value="nom">Nom</option>
+            <option value="prenom">Prénom</option>
+            <option value="age">Âge</option>
+            <option value="noteBac">Note au bac</option>
+            <option value="ville">Ville</option>
           </select>
-        </div> -->
+        </div>
 
       </div>  <!-- Test toast qui ne fonctionne pas -->
       <div class="row">
@@ -159,7 +159,7 @@
       </div>
 
       <div class="row">
-        <div class="collection col s6" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre | triNoteBacFilter:triNoteBac | mineur:tousMineurs | filter:{NomPrenom:triNomPrenom} | filter:{codeP:departement} |filter:{nom:search.nom, prenom:search.prenom, age:search.age,ville:search.ville,noteBac:search.noteBac}" >
+        <div class="collection col s6" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre | triNoteBacFilter:triNoteBac | mineur:tousMineurs | filter:{NomPrenom:triNomPrenom} | filter:{codeP:departement} |orderBy:{nom:search.nom, prenom:search.prenom, age:search.age,ville:search.ville,noteBac:search.noteBac}" >
           <div class="card col s12">
             <i ng-show="moisAnnif(user)" class="material-icons">cake</i>
             <div class="card-image waves-effect waves-block waves-light">
