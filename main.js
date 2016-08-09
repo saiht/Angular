@@ -91,8 +91,10 @@ MyApp.filter('mineur',function () {
     }
     //Si switch coché
     if (checked == undefined || checked == false) {
+      checked = true;
       return mineurs;
     }
+    checked = false;
     return majeurs;
   };
 });
@@ -113,15 +115,6 @@ MyApp.filter('drapeau',function(){
    };
 });
 
-MyApp.filter('triNP', function ($scope, $filter) {
-  var tableau = [];
-  return function (input, triNomPrenom) {
-    var nom = input.nom;
-    var prenom = input.prenom;
-    return $filter('filter')(input, {nom:$scope.triNomPrenom, prenom:$scope.triNomPrenom});
-  };
-});
-
 
 MyApp.controller('MainCtrl', ['$scope', function($scope) {
   //Création d'ue variable title dans la scope
@@ -131,9 +124,6 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
   */
   /*
   *  Application "Carnet d'Adresses"*/
-
-
-$scope.triNomPrenom = [nom, prenom];
 
 
   /*
@@ -150,7 +140,8 @@ $scope.triNomPrenom = [nom, prenom];
       sexe : true,
       ville : "Paris",
       bio : "Après une enfance dans les Yvelines à Plaisir et un baccalauréat A3 (philosophie et arts plastiques), Jean Dujardin débute dans la vie active en tant que serrurier dans l'entreprise de son père, Jacques Dujardin.",
-      langue : "fr"
+      langue : "fr",
+      codeP : 75000
     },
     {
       nom : "Eve",
@@ -162,7 +153,8 @@ $scope.triNomPrenom = [nom, prenom];
       sexe : false,
       ville : "Marseille",
       bio : "Alice Eve est née à Londres. Elle est la fille de Trevor Eve et de Sharon Maughan, tous deux acteurs. Elle a deux plus jeunes frères, Jack et George, et a été élevée au Royaume-Uni et à Los Angeles, aux États-Unis. Elle a obtenu son A-level à l’école de Westminster, à Londres. Pendant son année sabbatique, elle a suivi les cours de l’école d’acteurs et d’actrices Beverly Hills Playhouse, puis a étudié l’anglais au St Catherine’s College (en), à l’université d’Oxford. Pendant sa période à Oxford, elle est apparue dans diverses productions étudiantes, dont une adaptation d’Un mari idéal.",
-      langue : "en"
+      langue : "en",
+      codeP : 13000
     },
     {
       nom : "Clarke",
@@ -174,7 +166,8 @@ $scope.triNomPrenom = [nom, prenom];
       sexe : false,
       ville : "Lyon",
       bio : "Emilia Clarke a grandi dans le Berkshire. Son père est ingénieur du son dans un théâtre4, sa mère femme d'affaires, et son plus jeune frère étudie la politique. Elle a commencé à jouer à l'âge de 3 ans après avoir vu la comédie musicale Show Boat sur laquelle son père travaillait à l'époque. Elle a étudié à la St Edward's School (2000-2005) et Rye St Antony School (Oxford). Emilia Clarke est diplômée en 2009 du Drama Centre London (en), école de théâtre qu'elle a intégrée à 18 ans.",
-      langue : "en"
+      langue : "en",
+      codeP : 69000
     },
     {
       nom : "Mendes",
@@ -186,7 +179,8 @@ $scope.triNomPrenom = [nom, prenom];
       sexe : false,
       ville : "Paris",
       bio : "Née à Miami de parents cubains, elle est la plus jeune des quatre enfants (elle a deux sœurs et un frère, Tony), mais également la seule de la fratrie à être née aux États-Unis. Elle a vécu à Los Angeles, dans la banlieue de Glendale, après le divorce de ses parents. Élevée dans la religion catholique, elle aspirait à devenir religieuse. Elle parle couramment espagnol.",
-      langue : "es"
+      langue : "es",
+      codeP : 75000
     },
     {
       nom : "Dujardin2",
@@ -198,7 +192,8 @@ $scope.triNomPrenom = [nom, prenom];
       sexe : true,
       ville : "Marseille",
       bio : "Après une enfance dans les Yvelines à Plaisir et un baccalauréat A3 (philosophie et arts plastiques), Jean Dujardin débute dans la vie active en tant que serrurier dans l'entreprise de son père, Jacques Dujardin.",
-      langue : "fr"
+      langue : "fr",
+      codeP : 13000
     },
     {
       nom : "Merad",
@@ -210,33 +205,57 @@ $scope.triNomPrenom = [nom, prenom];
       sexe : true,
       ville : "Marseille",
       bio : "Né le 27 mars 1964 à Sidi Bel Abbès en Algérie, Kadour Merad est le troisième enfant de Mohamed Merad (père algérien arrivé en France à 16 ans, devenu ouvrier dans une société qui fabriquait des wagons de marchandises près de Saint-Etienne) et de Janine Béguin (mère française berrichonne, coiffeuse puis femme au foyer après la naissance de ses enfants). Kaddour Merad a deux frères, Karim et Reda, et une sœur Yasmina. Il est divorcé d'Emmanuelle Cosso-Mérad, parolière et écrivain, avec qui il vivait depuis 1992. Ensemble, ils ont eu un fils, Khalil, né en 2004. Depuis 2014, il vivrait une relation avec Julia Vignali.",
-      langue : "fr"
+      langue : "fr",
+      codeP : 13000
     },
     {
       nom : "Merad2",
       prenom : "Kad2",
       age : 52,
       photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Kad-Le_Petit_Nicolas-_Avant_Premi%C3%A8re.jpg/220px-Kad-Le_Petit_Nicolas-_Avant_Premi%C3%A8re.jpg",
-      birth : "27/03/1964",
+      birth : "27/08/1964",
       noteBac : 14,
       sexe : true,
       ville : "Marseille",
       bio : "Né le 27 mars 1964 à Sidi Bel Abbès en Algérie, Kadour Merad est le troisième enfant de Mohamed Merad (père algérien arrivé en France à 16 ans, devenu ouvrier dans une société qui fabriquait des wagons de marchandises près de Saint-Etienne) et de Janine Béguin (mère française berrichonne, coiffeuse puis femme au foyer après la naissance de ses enfants). Kaddour Merad a deux frères, Karim et Reda, et une sœur Yasmina. Il est divorcé d'Emmanuelle Cosso-Mérad, parolière et écrivain, avec qui il vivait depuis 1992. Ensemble, ils ont eu un fils, Khalil, né en 2004. Depuis 2014, il vivrait une relation avec Julia Vignali.",
-      langue : "fr"
+      langue : "fr",
+      codeP : 13000
     },
     {
       nom : "Mendes2",
       prenom : "Eva2",
       age : 42,
       photo : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Eva_Mend%C3%A8s_66%C3%A8me_Festival_de_Venise_%28Mostra%29.jpg/260px-Eva_Mend%C3%A8s_66%C3%A8me_Festival_de_Venise_%28Mostra%29.jpg",
-      birth : "05/03/1974",
+      birth : "05/08/1974",
       noteBac : 18,
       sexe : false,
       ville : "Paris",
       bio : "Née à Miami de parents cubains, elle est la plus jeune des quatre enfants (elle a deux sœurs et un frère, Tony), mais également la seule de la fratrie à être née aux États-Unis. Elle a vécu à Los Angeles, dans la banlieue de Glendale, après le divorce de ses parents. Élevée dans la religion catholique, elle aspirait à devenir religieuse. Elle parle couramment espagnol.",
-      langue : "es"
+      langue : "es",
+      codeP : 75000
     }
   ];
+
+  $scope.concatNP = function () {
+    for (user of $scope.utilisateurs) {
+      user.NomPrenom = user.prenom + " " + user.nom;
+    }
+  };
+  $scope.concatNP();
+
+
+  //mois anniversaire ng show
+  $scope.moisAnnif = function (user) {
+      var mois = parseInt(user.birth.substr(3,2));
+      var moisCourant = new Date().getMonth()+1;
+
+      if (mois == moisCourant) {
+        return true;
+      }
+      return false;
+  };
+
+
   /*
   + Afficher tous ces utilisateurs et leusr informations dans des Collections sous Materialize (http://materializecss.com/collections.html)*/
 
@@ -308,7 +327,7 @@ $scope.triNomPrenom = [nom, prenom];
               prenom: $scope.prenom,
               age: parseInt($scope.age),
               photo: $scope.photo,
-              birthday: $scope.birth,
+              birth: moment($scope.birth).format('DD/MM/YYYY'),
               noteBac: parseInt($scope.noteBac),
               sexe: $scope.sexe,
               ville: $scope.ville,
@@ -316,10 +335,13 @@ $scope.triNomPrenom = [nom, prenom];
               langue: $scope.langue
            });
 
+
            $scope.nom =  $scope.sexe = $scope.ville =  $scope.biographie = $scope.prenom = $scope.age = $scope.photo = $scope.birth = $scope.noteBac = "";
 
 
-           moyenneAge();
+           $scope.moyenneAge();
+           $scope.concatNP();
+           $scope.moisAnnif();
   };
 
 

@@ -120,11 +120,12 @@
 
       <input type="date" ng-change="filtre" ng-model="filtre">
 
-      <input type="text" name="name" placeholder="Chercher un nom ou un prénom dans les cards" ng-model="triNomPrenom">
+      <input type="text" name="NP" placeholder="Chercher un nom ou un prénom dans les cards" ng-model="triNomPrenom">
+      <input type="text" name="departement" placeholder="Chercher un département par Code Postal dans les cards" ng-model="departement">
 
-      <div class="collection" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre | triNoteBacFilter:triNoteBac | mineur:tousMineurs | filter:{triNomPrenom.nom, triNomPrenom.prenom}" >
+      <div class="collection" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre | triNoteBacFilter:triNoteBac | mineur:tousMineurs | filter:{NomPrenom:triNomPrenom} | filter:{codeP:departement}" >
         <div class="card col m3">
-            <div class="collection-item">
+            <div class="collection-item"><i ng-show="moisAnnif(user)" class="material-icons">access_time</i>
               <div class="card-image">
                 <img src="{{user.photo}}">
                 <h4>{{ user.prenom }} {{ user.nom }}</h4>
