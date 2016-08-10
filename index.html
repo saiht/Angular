@@ -21,8 +21,8 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- My librairies underscore animate moment materialize angular -->
-    <script src="bower_components/angular/angular.js" charset="utf-8"></script>
-    <script src="bower_components/moment/moment.js" charset="utf-8"></script>
+    <script src="bower_components/angular/angular.min.js" charset="utf-8"></script>
+    <script src="bower_components/moment/moment.min.js" charset="utf-8"></script>
     <script src="bower_components/underscore/underscore-min.js" charset="utf-8"></script>
     <script src="bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
     <script src="bower_components/materialize/dist/js/materialize.min.js" charset="utf-8"></script>
@@ -164,9 +164,12 @@
                 <i class="material-icons blue">plus_one</i>
               </button>
               <button ng-model="clique" ng-click="likeDislike()" class="btn-floating" type="button" name="button">
-                <i ng-show="likeDislike(user.aydee)" class="material-icons pink">favorite_border</i>
-                <i ng-show="likeDislike(user.aydee)" class="material-icons red">favorite</i>
+                <i ng-show="likeDislike(user)" class="material-icons pink">favorite_border</i>
+                <i ng-show="likeDislike(user)" class="material-icons red">favorite</i>
               </button>
+              <p>
+                dddd
+              </p>
             </div>
 
             <div class="card-content">

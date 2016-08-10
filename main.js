@@ -266,19 +266,28 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
   };
 
   $scope.lesLikes = [];
-  $scope.likeDislike = function (aydee) {
-    $scope.lesLikes.splice(aydee);
-    for (like of $scope.lesLikes) {
-      if (like == aydee) {
-        $scope.lesLikes.splice(aydee,1);
-          if ($scope.clique == undefined || $scope.clique == true) {
-            $scope.clique = false;
-            return true;
-          }
-          $scope.clique = true;
-          return false;
-      }
-    }
+
+  $scope.likeDislike = function (user) {
+    // $scope.lesLikes.splice(aydee,1);
+    // console.log(user.aydee, $scope.lesLikes);
+    // $scope.lesLikes.push(user.aydee);
+    // console.log("tableau likes : " + $scope.lesLikes);
+
+
+    // for (like of $scope.lesLikes) {
+    //   if (like == aydee) {
+    //     $scope.lesLikes.splice(aydee,1);
+    //
+    //
+    //
+    //       if ($scope.clique == undefined || $scope.clique == true) {
+    //         $scope.clique = false;
+    //         return true;
+    //       }
+    //       $scope.clique = true;
+    //       return false;
+    //   }
+    // }
 
     // if ($scope.clique == undefined || $scope.clique == true) {
     //   $scope.clique = false;
