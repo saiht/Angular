@@ -28,6 +28,9 @@
     <script src="bower_components/materialize/dist/js/materialize.min.js" charset="utf-8"></script>
     <script src="bower_components/angular-materialize/src/angular-materialize.js" charset="utf-8"></script>
     <script src="main.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      Materialize.toast('I am a toast!', 4000);
+    </script>
 
     <style media="screen">
       .card .card-image img {
@@ -103,7 +106,7 @@
               </p>
               <label>
                 Mineurs
-                <input type="checkbox" value="false" ng-model="tousMineurs">
+                <input type="checkbox" ng-model="tousMineurs">
                 <span class="lever"></span>
                 Majeurs
               </label>
@@ -142,32 +145,32 @@
             <option value="ville">Ville</option>
           </select>
         </div>
-
-      </div>  <!-- Test toast qui ne fonctionne pas -->
-      <div class="row">
-        <div class="col s4" input-field>
-          <input id="message" type="text" ng-model="dummyInputs.message" ng-init="dummyInputs.message = 'I\'m a message'">
-          <label for="message">Message</label>
-        </div>
-        <div class="col s2" input-field>
-          <input id="toastDuration" type="text" ng-model="dummyInputs.duration" ng-init="dummyInputs.duration = 1000">
-          <label for="toastDuration">Toast duration</label>
-        </div>
-        <div class="input-field col s4">
-          <a class="waves-effect waves-light btn" message="{{dummyInputs.message}}" duration="{{dummyInputs.duration}}" toast='click'>Toast!</a>
-        </div>
       </div>
 
       <div class="row">
         <div class="collection col s6" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre | triNoteBacFilter:triNoteBac | mineur:tousMineurs | filter:{NomPrenom:triNomPrenom} | filter:{codeP:departement} |orderBy:search" >
+
           <div class="card col s12">
             <i ng-show="moisAnnif(user)" class="material-icons">cake</i>
             <div class="card-image waves-effect waves-block waves-light">
               <img class="activator" src="{{ user.photo }}">
             </div>
+
+            <div class="col s12 center">
+              <button ng-click="suppUser(user)" class="btn-floating" type="button" name="button">
+                <i class="material-icons">delete_sweep</i>
+              </button>
+              <button class="btn-floating" type="button" name="button">
+                <i class="material-icons blue">plus_one</i>
+              </button>
+              <button ng-model="clique" ng-click="likeDislike()" class="btn-floating" type="button" name="button">
+                <i ng-show="likeDislike(user.aydee)" class="material-icons pink">favorite_border</i>
+                <i ng-show="likeDislike(user.aydee)" class="material-icons red">favorite</i>
+              </button>
+            </div>
+
             <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">{{ user.prenom }} {{ user.nom }}<i class="material-icons right">more_vert</i></span>
-              <button ng-click="suppUser(user)" class="btn-floating" type="button" name="button"><i class="material-icons">delete_sweep</i></button>
+              <span class="card-title activator grey-text text-darken-4">#{{ user.aydee }} {{ user.prenom }} {{ user.nom }}<i class="material-icons right">more_vert</i></span>
               <p>Date de naissance : {{ user.birth }} - {{ user.age }} ans</p>
               <p>Sexe : {{ user.sexe | sexe}}</p>
               <p>Langue : <img src="{{ user.langue | drapeau }}"/></p>
@@ -176,14 +179,14 @@
               <p>Ville : {{ user.ville }}</p>
               <p ng-class="{red:user.noteBac < 10}">Note du Baccalauréat : {{ user.noteBac }}/20</p>
               <span class="card-title grey-text text-darken-4">Biographie<i class="material-icons right">close</i></span>
-              <p>{{ user.bio}}</p>
+              <p>{{ user.bio }}</p>
             </div>
           </div>
         </div>
       </div>
 
 
-        <div class="row">
+      <div class="row">
 
         <form class="col s12" ng-submit="add()">
            <div class="row">
@@ -227,12 +230,11 @@
                <textarea ng-model="langue" ng-trim="true" id="langue" class="materialize-textarea" placeholder="Langue"></textarea>
              </div>
              <div class="input-field col 12">
-              <button type="submit" class="waves-effect waves-light btn" name="button">Enregistrer cet utilisaturs</button>
+              <button type="submit" class="waves-effect waves-light btn" onclick="Materialize.toast('Utilisateur créé', 4000, 'rounded')" name="button">Enregistrer cet utilisaturs</button>
              </div>
            </div>
          </form>
-
-     </div>
+      </div>
 
     </div>   <!-- Fin de container MainCtrl -->
   </body>

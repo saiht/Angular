@@ -112,6 +112,7 @@ MyApp.filter('drapeau',function(){
        case "fr":
           return "http://www.europetrotteur.com/images/drapeau_France.png";
        default:
+       return "http://yaronet.org/190/image/emoji/flag.gif";
      }
    };
 });
@@ -141,8 +142,8 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
       sexe : true,
       ville : "Paris",
       bio : "Après une enfance dans les Yvelines à Plaisir et un baccalauréat A3 (philosophie et arts plastiques), Jean Dujardin débute dans la vie active en tant que serrurier dans l'entreprise de son père, Jacques Dujardin.",
-      langue : "fr",
-      codeP : 75000
+      codeP : 75000,
+      aydee: 1
     },
     {
       nom : "Eve",
@@ -155,7 +156,8 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
       ville : "Marseille",
       bio : "Alice Eve est née à Londres. Elle est la fille de Trevor Eve et de Sharon Maughan, tous deux acteurs. Elle a deux plus jeunes frères, Jack et George, et a été élevée au Royaume-Uni et à Los Angeles, aux États-Unis. Elle a obtenu son A-level à l’école de Westminster, à Londres. Pendant son année sabbatique, elle a suivi les cours de l’école d’acteurs et d’actrices Beverly Hills Playhouse, puis a étudié l’anglais au St Catherine’s College (en), à l’université d’Oxford. Pendant sa période à Oxford, elle est apparue dans diverses productions étudiantes, dont une adaptation d’Un mari idéal.",
       langue : "en",
-      codeP : 13000
+      codeP : 13000,
+      aydee: 2
     },
     {
       nom : "Clarke",
@@ -168,7 +170,8 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
       ville : "Lyon",
       bio : "Emilia Clarke a grandi dans le Berkshire. Son père est ingénieur du son dans un théâtre4, sa mère femme d'affaires, et son plus jeune frère étudie la politique. Elle a commencé à jouer à l'âge de 3 ans après avoir vu la comédie musicale Show Boat sur laquelle son père travaillait à l'époque. Elle a étudié à la St Edward's School (2000-2005) et Rye St Antony School (Oxford). Emilia Clarke est diplômée en 2009 du Drama Centre London (en), école de théâtre qu'elle a intégrée à 18 ans.",
       langue : "en",
-      codeP : 69000
+      codeP : 69000,
+      aydee: 3
     },
     {
       nom : "Mendes",
@@ -181,7 +184,8 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
       ville : "Paris",
       bio : "Née à Miami de parents cubains, elle est la plus jeune des quatre enfants (elle a deux sœurs et un frère, Tony), mais également la seule de la fratrie à être née aux États-Unis. Elle a vécu à Los Angeles, dans la banlieue de Glendale, après le divorce de ses parents. Élevée dans la religion catholique, elle aspirait à devenir religieuse. Elle parle couramment espagnol.",
       langue : "es",
-      codeP : 75000
+      codeP : 75000,
+      aydee: 4
     },
     {
       nom : "Dujardin2",
@@ -194,7 +198,8 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
       ville : "Marseille",
       bio : "Après une enfance dans les Yvelines à Plaisir et un baccalauréat A3 (philosophie et arts plastiques), Jean Dujardin débute dans la vie active en tant que serrurier dans l'entreprise de son père, Jacques Dujardin.",
       langue : "fr",
-      codeP : 13000
+      codeP : 13000,
+      aydee: 5
     },
     {
       nom : "Merad",
@@ -207,7 +212,8 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
       ville : "Marseille",
       bio : "Né le 27 mars 1964 à Sidi Bel Abbès en Algérie, Kadour Merad est le troisième enfant de Mohamed Merad (père algérien arrivé en France à 16 ans, devenu ouvrier dans une société qui fabriquait des wagons de marchandises près de Saint-Etienne) et de Janine Béguin (mère française berrichonne, coiffeuse puis femme au foyer après la naissance de ses enfants). Kaddour Merad a deux frères, Karim et Reda, et une sœur Yasmina. Il est divorcé d'Emmanuelle Cosso-Mérad, parolière et écrivain, avec qui il vivait depuis 1992. Ensemble, ils ont eu un fils, Khalil, né en 2004. Depuis 2014, il vivrait une relation avec Julia Vignali.",
       langue : "fr",
-      codeP : 13000
+      codeP : 13000,
+      aydee: 6
     },
     {
       nom : "Merad2",
@@ -220,7 +226,8 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
       ville : "Marseille",
       bio : "Né le 27 mars 1964 à Sidi Bel Abbès en Algérie, Kadour Merad est le troisième enfant de Mohamed Merad (père algérien arrivé en France à 16 ans, devenu ouvrier dans une société qui fabriquait des wagons de marchandises près de Saint-Etienne) et de Janine Béguin (mère française berrichonne, coiffeuse puis femme au foyer après la naissance de ses enfants). Kaddour Merad a deux frères, Karim et Reda, et une sœur Yasmina. Il est divorcé d'Emmanuelle Cosso-Mérad, parolière et écrivain, avec qui il vivait depuis 1992. Ensemble, ils ont eu un fils, Khalil, né en 2004. Depuis 2014, il vivrait une relation avec Julia Vignali.",
       langue : "fr",
-      codeP : 13000
+      codeP : 13000,
+      aydee: 7
     },
     {
       nom : "Mendes2",
@@ -233,7 +240,8 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
       ville : "Paris",
       bio : "Née à Miami de parents cubains, elle est la plus jeune des quatre enfants (elle a deux sœurs et un frère, Tony), mais également la seule de la fratrie à être née aux États-Unis. Elle a vécu à Los Angeles, dans la banlieue de Glendale, après le divorce de ses parents. Élevée dans la religion catholique, elle aspirait à devenir religieuse. Elle parle couramment espagnol.",
       langue : "es",
-      codeP : 75000
+      codeP : 75000,
+      aydee: 8
     }
   ];
 
@@ -257,6 +265,33 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
       return false;
   };
 
+  $scope.lesLikes = [];
+  $scope.likeDislike = function (aydee) {
+    $scope.lesLikes.splice(aydee);
+    for (like of $scope.lesLikes) {
+      if (like == aydee) {
+        $scope.lesLikes.splice(aydee,1);
+          if ($scope.clique == undefined || $scope.clique == true) {
+            $scope.clique = false;
+            return true;
+          }
+          $scope.clique = true;
+          return false;
+      }
+    }
+
+    // if ($scope.clique == undefined || $scope.clique == true) {
+    //   $scope.clique = false;
+    //   return true;
+    // }
+    // $scope.clique = true;
+    // return false;
+
+
+
+
+
+  };
 
   /*
   + Afficher tous ces utilisateurs et leusr informations dans des Collections sous Materialize (http://materializecss.com/collections.html)*/
