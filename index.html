@@ -135,7 +135,7 @@
           <div class="card col s12">
             <i ng-show="moisAnnif(user)" class="material-icons">cake</i>
             <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" src="{{ user.photo }}">
+              <img class="activator" ng-src="{{ user.photo }}">
             </div>
 
             <div class="col s12 center">
@@ -149,16 +149,13 @@
                 <i ng-show="likeDislike(user)" class="material-icons pink">favorite_border</i>
                 <i ng-show="likeDislike(user)" class="material-icons red">favorite</i>
               </button>
-              <p>
-                dddd
-              </p>
             </div>
 
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4">#{{ user.aydee }} {{ user.prenom }} {{ user.nom }}<i class="material-icons right">more_vert</i></span>
               <p>Date de naissance : {{ user.birth }} - {{ user.age }} ans</p>
               <p>Sexe : {{ user.sexe | sexe}}</p>
-              <p>Langue : <img src="{{ user.langue | drapeau }}"/></p>
+              <p>Langue : <img ng-src="{{ user.langue | drapeau }}"/></p>
             </div>
             <div class="card-reveal">
               <p>Ville : {{ user.ville }}</p>

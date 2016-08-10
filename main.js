@@ -265,41 +265,67 @@ MyApp.controller('MainCtrl', ['$scope', function($scope) {
       return false;
   };
 
-  $scope.lesLikes = [];
+  $scope.lesLikes = [""];
 
   $scope.likeDislike = function (user) {
-    // $scope.lesLikes.splice(aydee,1);
-    // console.log(user.aydee, $scope.lesLikes);
-    // $scope.lesLikes.push(user.aydee);
-    // console.log("tableau likes : " + $scope.lesLikes);
 
+    var indexU = user.aydee;
+    console.log(indexU);
+    var bascule = 0;
 
-    // for (like of $scope.lesLikes) {
-    //   if (like == aydee) {
-    //     $scope.lesLikes.splice(aydee,1);
+    for (var i = 0; i < $scope.lesLikes.length; i++) {
+      if (indexU == $scope.lesLikes[i]) {
+        bascule = 1;
+      }
+      else {
+        bacule = 0;
+      }
+      $scope.lesLikes.splice(indexU,1);
+    }
+
+    // $scope.lesLikes.splice(user.aydee,1);
+    // $scope.lesLikes = _.uniq($scope.lesLikes);
     //
+    // var bascule = 0;
     //
-    //
-    //       if ($scope.clique == undefined || $scope.clique == true) {
-    //         $scope.clique = false;
-    //         return true;
-    //       }
-    //       $scope.clique = true;
-    //       return false;
+    // for (var i = 0; i < $scope.lesLikes.length; i++) {
+    //   if (user.aydee == $scope.lesLikes[i]) {
+    //     console.log("ok");
+    //     bascule = 1;
+    //   }
+    //   else {
+    //     bascule = 0;
     //   }
     // }
+    // $scope.lesLikes.splice(user.aydee,1);
+    // console.log(user.aydee);
+    // // console.log($scope.lesLikes);
 
-    // if ($scope.clique == undefined || $scope.clique == true) {
-    //   $scope.clique = false;
-    //   return true;
-    // }
-    // $scope.clique = true;
-    // return false;
+    if ($scope.clique == undefined || $scope.clique == true) {
+      $scope.clique = false;
+      return true;
+    }
+    $scope.clique = true;
+    return false;
+  };
 
 
+//récupérer les ID et les mettre dans le tableau lesLikes ou les retirer
+  $scope.recupId = function (user) {
+    for (var i = 0; i < $scope.lesLikes.length; i++) {
+      var index = $scope.indexOf(usr);
 
-
-
+      if (user.aydee == $scope.lesLikes[i]) {
+        console.log("ok");
+        $scope.lesLikes.splice(index,1);
+        console.log($scope.lesLikes);
+        return true;
+      }
+      else {
+        $scope.lesLikes.splice(index,1);
+        return false;
+      }
+    }
   };
 
   /*
