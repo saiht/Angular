@@ -159,7 +159,7 @@
       </div>
 
       <div class="row">
-        <div class="collection col s6" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre | triNoteBacFilter:triNoteBac | mineur:tousMineurs | filter:{NomPrenom:triNomPrenom} | filter:{codeP:departement} |orderBy:{nom:search.nom, prenom:search.prenom, age:search.age,ville:search.ville,noteBac:search.noteBac}" >
+        <div class="collection col s6" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre | triNoteBacFilter:triNoteBac | mineur:tousMineurs | filter:{NomPrenom:triNomPrenom} | filter:{codeP:departement} |orderBy:search" >
           <div class="card col s12">
             <i ng-show="moisAnnif(user)" class="material-icons">cake</i>
             <div class="card-image waves-effect waves-block waves-light">
@@ -167,7 +167,7 @@
             </div>
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4">{{ user.prenom }} {{ user.nom }}<i class="material-icons right">more_vert</i></span>
-              <button ng-click="suppUser(user)" type="button" name="button"><i class="material-icons">delete</i></button>
+              <button ng-click="suppUser(user)" class="btn-floating" type="button" name="button"><i class="material-icons">delete_sweep</i></button>
               <p>Date de naissance : {{ user.birth }} - {{ user.age }} ans</p>
               <p>Sexe : {{ user.sexe | sexe}}</p>
               <p>Langue : <img src="{{ user.langue | drapeau }}"/></p>
