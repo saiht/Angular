@@ -14,38 +14,26 @@ MyApp.filter('orderTab', function(){
   return function(input, regex){
     var tableau = [];
     var regexAge = new RegExp(regex);
-    for (user of input) {
-      if (regexAge.test(user.age)) {
-        tableau.push(user);
+    if (input != undefined) {
+      for (user of input) {
+        if (regexAge.test(user.age)) {
+          tableau.push(user);
+        }
       }
     }
+
     return tableau;
   };
 });
 
 MyApp.filter('filtreAge', function () {
-  return function(input, date){
-    var tableau = [];
-    var indexUser = input.indexOf(user);
-    var anneeBirth;
-    if (!angular.isDefined(date)) {
-      tableau = input;
+  return function(tableau, date){
+    if(date === undefined || date === null){
       return tableau;
     }
-    else {
-      date = new Date(date).getFullYear();
-      // console.log(date);
-      for (user of input) {
-        anneeBirth = parseInt(user.birth.substr(6,4));
-        // console.log(anneeBirth);
-        indexUser = input.indexOf(user);
-        // console.log(indexUser);
-        if (anneeBirth>date) {
-          tableau.push(user);
-        }
-      }
-    }
-    return tableau;
+    return  _.filter(tableau, function(utilisateur){
+      return moment(utilisateur.birth,'DD/MM/YYYY') > moment(date);
+    });
   };
 });
 
@@ -122,9 +110,8 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   //Création d'ue variable title dans la scope
   $scope.title = "Exo 3 Gestion de contacts";
 
-  $http.get('https://jsonblob.com/api/57ab3ef0e4b0dc55a4ebdcc3').success(function (response) {
+  $http.get('https://jsonblob.com/api/57ac253ae4b0dc55a4ec09eb').success(function (response) {
     $scope.utilisateurs = response;
-    console.log(response);
       $scope.concatNP();
   });
 
@@ -220,7 +207,10 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
 
 
   $scope.moyenneAge = function () {
-    return (_.reduce($scope.utilisateurs, function(memo, num){ return memo + num.age; }, 0)/ $scope.utilisateurs.length).toFixed(0);
+    if ($scope.utilisateurs != undefined) {
+          return (_.reduce($scope.utilisateurs, function(memo, num){ return memo + num.age; }, 0)/ $scope.utilisateurs.length).toFixed(0);
+    }
+
   };
 
 
