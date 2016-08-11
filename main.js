@@ -236,4 +236,4 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   };
 
 
-}]);
+}]);  // Controller END
