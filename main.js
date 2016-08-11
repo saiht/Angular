@@ -116,7 +116,7 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   });
 
   // Création d'un attribut NomPrenom pour faciliter les recherches en input text
-  // Pas trop recommandé de modifié le tableau JSON
+  // Pas trop recommandé de modifier le tableau JSON
   $scope.concatNP = function () {
     for (user of $scope.utilisateurs) {
       user.NomPrenom = user.prenom + " " + user.nom;
