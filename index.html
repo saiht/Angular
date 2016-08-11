@@ -145,10 +145,10 @@
               <button class="btn-floating" type="button" name="button">
                 <i class="material-icons blue">plus_one</i>
               </button>
-              <button ng-click="addLikeOrRemove(user)" class="btn-floating" type="button" name="button">
+              <button ng-click="addLikeOrRemove(user)" class="btn-floating" type="button" name="button"> <!-- Ajoute ou enlève l'ID de l'user au clique -->
                 <i ng-show="estDedans(user.aydee) == false" class="material-icons pink">favorite_border</i>
                 <i ng-show="estDedans(user.aydee) == true" class="material-icons red">favorite</i>
-                <!-- dans le i, vérifier la présence de l'indice dans le tableau likeDislike, et dans button ng-click pour ajouter ou enlever l'indice -->
+                <!-- dans le i, juste vérifier la présence de l'indice dans le tableau lesLikes -->
               </button>
             </div>
 

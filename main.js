@@ -136,11 +136,21 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   };
 
 
-// Tableau de j'aime
-  $scope.lesLikes = [];
-  // console.log("lesLikes avant traitement : " + $scope.lesLikes);
+// Tableau d'ID des j'aimes
+  var lesLikes;
 
-   $scope.estDedans = function (identifiant) {
+  var RecupLS = function () {
+    if (typeof localStorage!='undefined') {
+      $scope.lesLikes = localStorage.getItem(lesLikes);
+      console.log($scope.lesLikes);
+    }
+    else {
+      $scope.lesLikes = [];
+    }
+  }();
+
+
+  $scope.estDedans = function (identifiant) {
     $scope.lesLikes = _.uniq($scope.lesLikes);
 
     if ($scope.lesLikes.indexOf(identifiant) != -1) {
@@ -153,7 +163,6 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   };
 
   $scope.addLikeOrRemove = function (user) {
-    // Vérification
     if (user == undefined) {
       return true;
     }
@@ -167,29 +176,8 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
     else {
       $scope.lesLikes.push(user.aydee);
     }
-
   };
 
-
-
-
-//récupérer les ID et les mettre dans le tableau lesLikes ou les retirer
-  $scope.recupId = function (user) {
-    for (var i = 0; i < $scope.lesLikes.length; i++) {
-      var index = $scope.indexOf(usr);
-
-      if (user.aydee == $scope.lesLikes[i]) {
-        console.log("ok");
-        $scope.lesLikes.splice(index,1);
-        console.log($scope.lesLikes);
-        return true;
-      }
-      else {
-        $scope.lesLikes.splice(index,1);
-        return false;
-      }
-    }
-  };
 
   /*
   + Afficher tous ces utilisateurs et leusr informations dans des Collections sous Materialize (http://materializecss.com/collections.html)*/
