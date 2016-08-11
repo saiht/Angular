@@ -135,49 +135,42 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
       return false;
   };
 
-  $scope.lesLikes = [""];
 
-  $scope.likeDislike = function (user) {
+// Tableau de j'aime
+  $scope.lesLikes = [];
+  // console.log("lesLikes avant traitement : " + $scope.lesLikes);
 
-    var indexU = user.aydee;
-    console.log(indexU);
-    var bascule = 0;
+   $scope.estDedans = function (identifiant) {
+    $scope.lesLikes = _.uniq($scope.lesLikes);
 
-    for (var i = 0; i < $scope.lesLikes.length; i++) {
-      if (indexU == $scope.lesLikes[i]) {
-        bascule = 1;
-      }
-      else {
-        bacule = 0;
-      }
-      $scope.lesLikes.splice(indexU,1);
-    }
-
-    // $scope.lesLikes.splice(user.aydee,1);
-    // $scope.lesLikes = _.uniq($scope.lesLikes);
-    //
-    // var bascule = 0;
-    //
-    // for (var i = 0; i < $scope.lesLikes.length; i++) {
-    //   if (user.aydee == $scope.lesLikes[i]) {
-    //     console.log("ok");
-    //     bascule = 1;
-    //   }
-    //   else {
-    //     bascule = 0;
-    //   }
-    // }
-    // $scope.lesLikes.splice(user.aydee,1);
-    // console.log(user.aydee);
-    // // console.log($scope.lesLikes);
-
-    if ($scope.clique == undefined || $scope.clique == true) {
-      $scope.clique = false;
+    if ($scope.lesLikes.indexOf(identifiant) != -1) {
+      // console.log('Dans le if de estDedans(identifiant)');
+      // console.log("lesLikes APRÈS traitement : " + $scope.lesLikes);
       return true;
     }
-    $scope.clique = true;
+    // console.log("lesLikes APRÈS traitement : " + $scope.lesLikes);
     return false;
   };
+
+  $scope.addLikeOrRemove = function (user) {
+    // Vérification
+    if (user == undefined) {
+      return true;
+    }
+    // console.log($scope.estDedans(user.aydee));
+
+    if ($scope.estDedans(user.aydee)) {
+      var indiceDansLesLikes = $scope.lesLikes.indexOf(user.aydee);
+      // console.log(indiceDansLesLikes);
+      $scope.lesLikes.splice(indiceDansLesLikes, 1);
+    }
+    else {
+      $scope.lesLikes.push(user.aydee);
+    }
+
+  };
+
+
 
 
 //récupérer les ID et les mettre dans le tableau lesLikes ou les retirer
