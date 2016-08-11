@@ -113,6 +113,7 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   $http.get('https://jsonblob.com/api/57ac253ae4b0dc55a4ec09eb').success(function (response) {
     $scope.utilisateurs = response;
       $scope.concatNP();
+      remplissage();
   });
 
   $scope.concatNP = function () {
@@ -137,18 +138,7 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
 
 
 // Tableau d'ID des j'aimes
-  var lesLikes;
-
-  var RecupLS = function () {
-    if (typeof localStorage!='undefined') {
-      $scope.lesLikes = localStorage.getItem(lesLikes);
-      console.log($scope.lesLikes);
-    }
-    else {
-      $scope.lesLikes = [];
-    }
-  }();
-
+  $scope.lesLikes = [];
 
   $scope.estDedans = function (identifiant) {
     $scope.lesLikes = _.uniq($scope.lesLikes);
@@ -177,6 +167,34 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
       $scope.lesLikes.push(user.aydee);
     }
   };
+
+  // Incrémentation de +1 sur un utilisateur
+  // nbrPlusIdUser et nbrPlusCompteur ont des indices coordonnées
+  // soit : nbrPlusIdUser[0] = user[0].aydee et a un compteur = nbrPlusCompteur[0]
+  // $scope.nbrPlusIdUser = [];
+  // $scope.nbrPlusCompteur = [];
+  $scope.nbrPlus = [];
+
+  function remplissage() {
+    for (user of $scope.utilisateurs) {
+      var indexUser = user.aydee;
+        if (!$scope.nbrPlus[indexUser]) {
+          $scope.nbrPlus[user.aydee] = 0;
+        }
+    }
+    console.log($scope.nbrPlus);
+  }
+
+  $scope.plusUn = function (userId) {
+    $scope.nbrPlus[userId]++;
+  };
+
+
+  // $scope.ajoutCompteur = function (userId) {
+  //   $scope.nbrPlus.id = userId;
+  //   console.log($scope.nbrPlus);
+  // };
+
 
 
   /*
@@ -268,6 +286,7 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
            $scope.moyenneAge();
            $scope.concatNP();
            $scope.moisAnnif();
+           remplissage();
   };
 
 
