@@ -144,11 +144,9 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
     $scope.lesLikes = _.uniq($scope.lesLikes);
 
     if ($scope.lesLikes.indexOf(identifiant) != -1) {
-      // console.log('Dans le if de estDedans(identifiant)');
-      // console.log("lesLikes APRÈS traitement : " + $scope.lesLikes);
+
       return true;
     }
-    // console.log("lesLikes APRÈS traitement : " + $scope.lesLikes);
     return false;
   };
 
@@ -156,11 +154,9 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
     if (user == undefined) {
       return true;
     }
-    // console.log($scope.estDedans(user.aydee));
 
     if ($scope.estDedans(user.aydee)) {
       var indiceDansLesLikes = $scope.lesLikes.indexOf(user.aydee);
-      // console.log(indiceDansLesLikes);
       $scope.lesLikes.splice(indiceDansLesLikes, 1);
     }
     else {
@@ -169,10 +165,6 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   };
 
   // Incrémentation de +1 sur un utilisateur
-  // nbrPlusIdUser et nbrPlusCompteur ont des indices coordonnées
-  // soit : nbrPlusIdUser[0] = user[0].aydee et a un compteur = nbrPlusCompteur[0]
-  // $scope.nbrPlusIdUser = [];
-  // $scope.nbrPlusCompteur = [];
   $scope.nbrPlus = [];
 
   function remplissage() {
@@ -182,9 +174,7 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
           $scope.nbrPlus[user.aydee] = 0;
         }
     }
-    console.log($scope.nbrPlus);
   }
-
   $scope.plusUn = function (userId) {
     $scope.nbrPlus[userId]++;
   };
@@ -207,9 +197,8 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
 
   $scope.moyenneAge = function () {
     if ($scope.utilisateurs != undefined) {
-          return (_.reduce($scope.utilisateurs, function(memo, num){ return memo + num.age; }, 0)/ $scope.utilisateurs.length).toFixed(0);
+      return (_.reduce($scope.utilisateurs, function(memo, num){ return memo + num.age; }, 0)/ $scope.utilisateurs.length).toFixed(0);
     }
-
   };
 
 
@@ -227,6 +216,7 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   $scope.suppUser = function (user) {
     var indexUser = $scope.utilisateurs.indexOf(user);
     $scope.utilisateurs.splice(indexUser, 1);
+    $scope.nbrPlus.splice(indexUser,1);
   };
 
   /*

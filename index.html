@@ -133,7 +133,7 @@
         <div class="collection col s6" ng-repeat="user in utilisateurs | filter:selectedRadioDeMerde | orderTab:trancheAge | filtreAge:filtre | triNoteBacFilter:triNoteBac | mineur:tousMineurs | filter:{NomPrenom:triNomPrenom} | filter:{codeP:departement} |orderBy:search" >
 
           <div class="card col s12">
-            <i ng-show="moisAnnif(user)" class="material-icons">cake</i>
+            <i ng-show="moisAnnif(user)" class="material-icons animated infinite swing">cake</i>
             <div class="card-image waves-effect waves-block waves-light">
               <img class="activator" ng-src="{{ user.photo }}">
             </div>
@@ -157,6 +157,7 @@
               <p>Date de naissance : {{ user.birth }} - {{ user.age }} ans</p>
               <p>Sexe : {{ user.sexe | sexe}}</p>
               <p>Langue : <img ng-src="{{ user.langue | drapeau }}"/></p>
+              <p ng-show="nbrPlus[user.aydee] != 0">Nombre de votes : +{{ nbrPlus[user.aydee] }}</p>
             </div>
             <div class="card-reveal">
               <p>Ville : {{ user.ville }}</p>
