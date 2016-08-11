@@ -1,15 +1,9 @@
 /**
  * Déclaration de l'application MyPhonesApp
  */
-
-
 var MyApp = angular.module('MyApp', []);
 
-/**
- * Controller MainCtrl qui fera appel au premier module d'Angular, qui est la scope
- * La scope est un objet entre le html et le javascript pour contrôler la DOM
- * Un contrôleur requiert à 99% la scope
- */
+// Filtre de regex pour les tranches d'âge
 MyApp.filter('orderTab', function(){
   return function(input, regex){
     var tableau = [];
@@ -26,6 +20,7 @@ MyApp.filter('orderTab', function(){
   };
 });
 
+// Filtre l'âge en fonction de l'entrée du DatePicker
 MyApp.filter('filtreAge', function () {
   return function(tableau, date){
     if(date === undefined || date === null){
@@ -37,6 +32,7 @@ MyApp.filter('filtreAge', function () {
   };
 });
 
+// Filtre les users en fonction de la valeur de la rangebar NoteBac
 MyApp.filter('triNoteBacFilter', function () {
   return function(input, triNoteBac){
     var tableau = [];
@@ -56,6 +52,7 @@ MyApp.filter('triNoteBacFilter', function () {
   };
 });
 
+// filtre qui permet d'afficher le sexe des users au lieu des booleans
 MyApp.filter('sexe',function(){
   return function(sexe){
       if(sexe === false){
@@ -65,6 +62,7 @@ MyApp.filter('sexe',function(){
    };
 });
 
+// filtre mineurs majeurs en fonction de la checkbox switch
 MyApp.filter('mineur',function () {
   return function (input, checked) {
     var majeurs = [];
@@ -88,6 +86,7 @@ MyApp.filter('mineur',function () {
   };
 });
 
+// filtre qui affiche les drapeau en fonction de la langue des users
 MyApp.filter('drapeau',function(){
    return function(langue){
      switch (langue) {
@@ -105,7 +104,7 @@ MyApp.filter('drapeau',function(){
    };
 });
 
-
+// Controller START
 MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   //Création d'ue variable title dans la scope
   $scope.title = "Exo 3 Gestion de contacts";
@@ -116,6 +115,8 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
       remplissage();
   });
 
+  // Création d'un attribut NomPrenom pour faciliter les recherches en input text
+  // Pas trop recommandé de modifié le tableau JSON
   $scope.concatNP = function () {
     for (user of $scope.utilisateurs) {
       user.NomPrenom = user.prenom + " " + user.nom;
@@ -124,7 +125,7 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
 
 
 
-  //mois anniversaire ng show
+  // Fonction qui permet d'afficher un cake si le mois d'annif est égal au mois courant
   $scope.moisAnnif = function (user) {
     // console.log(user.birth);
       var mois = parseInt(user.birth.substr(3,2));
@@ -137,9 +138,12 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   };
 
 
-// Tableau d'ID des j'aimes
-  $scope.lesLikes = [];
+/**
+ * Like ou Dislike en fonction de l'ID de chaque utilisateurs pour changer le logo favorite ou favorite_border
+ */
+  $scope.lesLikes = [];   //Tableau des likes comportant les id des users
 
+  // Fonction permettant d'observer la présence de l'id de user dans le tableau lesLikes
   $scope.estDedans = function (identifiant) {
     $scope.lesLikes = _.uniq($scope.lesLikes);
 
@@ -150,11 +154,11 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
     return false;
   };
 
+  // Fonction permettant d'ajouter/retirer l'id de l'user liké
   $scope.addLikeOrRemove = function (user) {
-    if (user == undefined) {
+    if (user == undefined) {      //Vérification undefined
       return true;
     }
-
     if ($scope.estDedans(user.aydee)) {
       var indiceDansLesLikes = $scope.lesLikes.indexOf(user.aydee);
       $scope.lesLikes.splice(indiceDansLesLikes, 1);
@@ -166,7 +170,7 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
 
   // Incrémentation de +1 sur un utilisateur
   $scope.nbrPlus = [];
-
+  //Fonction remplissage qui initialise nbrPlus de la forme idUser:Compteur par user
   function remplissage() {
     for (user of $scope.utilisateurs) {
       var indexUser = user.aydee;
@@ -175,35 +179,19 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
         }
     }
   }
+  //fonction incrémentation des +1 en fonction des users
   $scope.plusUn = function (userId) {
     $scope.nbrPlus[userId]++;
   };
 
-
-  // $scope.ajoutCompteur = function (userId) {
-  //   $scope.nbrPlus.id = userId;
-  //   console.log($scope.nbrPlus);
-  // };
-
-
-
-  /*
-  + Afficher tous ces utilisateurs et leusr informations dans des Collections sous Materialize (http://materializecss.com/collections.html)*/
-
-  /*
-  + Afficher le nombre d'utilisateur ainsi que la moyenne d'age des utilisateurs
-  + Afficher à coté du nombre utilisateurs le mot "utilisateurs" avec un "s" ou pas selon le nombre d'utilisateur avec la directive "ng-show"*/
-
-
+  /**
+   * Calcul de la moyenne Age utilisateurs
+   */
   $scope.moyenneAge = function () {
     if ($scope.utilisateurs != undefined) {
       return (_.reduce($scope.utilisateurs, function(memo, num){ return memo + num.age; }, 0)/ $scope.utilisateurs.length).toFixed(0);
     }
   };
-
-
-  /*
-  + Afficher le mots "Il y a que des mineurs" si il y a uniquement que  "ng-show" ou "ng-if" (._every)*/
 
   //sortBy pour trier le tableau utilisateurs, puis sortedIndex pour trouver renvoyer l'indice du dernier user ayant un age inférieur à 46 ans
   $scope.vieux = function () {
@@ -211,100 +199,41 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   };
 
   /*
-  + Créer un bouton "remove" à chaque utilisateur permettant au click de supprimer l'utilisateur*/
-
+  + Créer un bouton "remove" à chaque utilisateur permettant au click de supprimer l'utilisateur
+  */
   $scope.suppUser = function (user) {
     var indexUser = $scope.utilisateurs.indexOf(user);
     $scope.utilisateurs.splice(indexUser, 1);
     $scope.nbrPlus.splice(indexUser,1);
   };
 
-  /*
-  + Afficher, si il n'y a plus "Plus aucun utilisateurs" et cacher la moyenne d'age*/
-
-  //OK => dans l'HTML
-
-  /*
-  + Créer des boutons radios Lyon, Paris, Marseille pour filtrer les utilisateurs au click de ces bouttons radios*/
-
-  //OK => dans l'HTML
-
-  /*
-  + Créer des checkbox de tranches d'age permettant de filtrer par age les utilisateurs incluant les tranches suivantes: -10, 10-18, 18-30 , 30-45 , + de 45 */
-
-
-//
-//   $scope.myFilterRegex = function(/^(([1]\d)|(20))$/) {
-//    return regex.test(user.age);
-// };
-
-//
-// console.log($scope.utilisateurs);
-// console.log(tableau);
-
-
-  /*
-  Bonus: Les checkbox de tranches d'age prendra en compte le 1er filtre sur les boutons radios
-  + Créer un Datepicker pour filtrer par date de naissances les utilisateurs à partir de cette date : avec Materializecss http://materializecss.com/forms.html#date-picker*/
-
-  /*
-  + Créer un input range pour filtrer selon la note au bac de 1 à 20 avec Materialize http://materializecss.com/forms.html#range*/
-
-  /*
-  + Créer un formulaire d'ajout d'utilisateurs avec l'ensemble de ces données (on fera la validation plus tard, vous pouvez prendre de l'avance et voir comment on valide un formulaire sous ANgular ici
-  https://openclassrooms.com/courses/validation-de-formulaire-simplifiee-avec-angularjs)*/
-
+  /**
+   * Ajout utilisateur
+   */
   $scope.add = function () {
 
     $scope.utilisateurs.push({
-              nom: $scope.nom,
-              prenom: $scope.prenom,
-              age: parseInt($scope.age),
-              photo: $scope.photo,
-              birth: moment($scope.birth).format('DD/MM/YYYY'),
-              noteBac: parseInt($scope.noteBac),
-              sexe: $scope.sexe,
-              ville: $scope.ville,
-              biographie: $scope.bio,
-              langue: $scope.langue
-           });
+      nom: $scope.nom,
+      prenom: $scope.prenom,
+      age: parseInt($scope.age),
+      photo: $scope.photo,
+      birth: moment($scope.birth).format('DD/MM/YYYY'),
+      noteBac: parseInt($scope.noteBac),
+      sexe: $scope.sexe,
+      ville: $scope.ville,
+      biographie: $scope.bio,
+      langue: $scope.langue
+   });
 
+   // Vider les champs du formulaire après click sur bouton de création d'user
+   $scope.nom =  $scope.sexe = $scope.ville =  $scope.biographie = $scope.prenom = $scope.age = $scope.photo = $scope.birth = $scope.noteBac = "";
 
-           $scope.nom =  $scope.sexe = $scope.ville =  $scope.biographie = $scope.prenom = $scope.age = $scope.photo = $scope.birth = $scope.noteBac = "";
-
-
-           $scope.moyenneAge();
-           $scope.concatNP();
-           $scope.moisAnnif();
-           remplissage();
+   // Relance les calculs / initialisations
+   $scope.moyenneAge();
+   $scope.concatNP();
+   $scope.moisAnnif();
+   remplissage();
   };
 
-
-
-  /*
-
-  + Bonus: Externaliser les users dans un fichier json et chargé ce fichier en AJAX à l'aide de l'opérateur $http
-  +
-*/
-
-   // Tuto Moment: http://www.lafermeduweb.net/billet/moment-js-manipuler-les-dates-javascript-simplement-1246.html
-
-//   Lien: http://www.tutoriel-angularjs.fr/tutoriel/2-utilisation-complete-d-angularjs/2-les-filtres*/
-
-   /*
-		+ Cacher les cards des users quand il y en a pas et y mettre un petite message en rouge: Aucun utilisateurs trouvé :( (attention aux filtres!!)
-    + Ajouter 1 classe css "warning" si l'utilisateur n'a pas eu la moyenne au bac: Directive "ng-class"
-    + Créer un filtre qui selon la langue affiche le drapeau du pays pour chaque utilisateurs
-		+ Créer un bouton Switch permettant de filtrer les utilisateurs majeurs ou les utilisateurs mineurs
-   	+ Créer un moteur de recherche instantanée de recherche de d'utilisateurs sur le nom et le prénom
-   	+ Ajouter aux utilisateurs le code postal
-    + Ajouter un champ département permùettant de filtrer les utilisateurs par départements
-    + AJouter un icon "access_time" a coté de chaque utilisateur si ce mois courant est le mois d'anniversaire de l'utilisateur <i class="material-icons">access_time</i> (utiliser moment)
-    + Créer une liste déroulante me permettant de trier par nom, par prénom, par age, par note au bac ou par ville
-    + Créer un bouton
-    + Créer une notification (Toast) quand un utilisateurs se crée http://materializecss.com/dialogs.html#toast
-    + Ajouter pour chaque utilisateur des coordonnées GPS avec longitude et latitude
-    +
-    */
 
 }]);
