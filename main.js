@@ -112,7 +112,7 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   $http.get('https://jsonblob.com/api/57ac253ae4b0dc55a4ec09eb').success(function (response) {
     $scope.utilisateurs = response;
       $scope.concatNP();
-      // remplissage();
+      remplissage();
   });
 
   // Création d'un attribut NomPrenom pour faciliter les recherches en input text
@@ -140,7 +140,6 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
     else {
       console.log("Vide");
       $scope.lesLikes = [];
-      remplissage();
     }
   }
 
@@ -183,9 +182,7 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
       $scope.lesLikes.push(user.aydee);
     }
 
-    // Test Stockage
-    // console.log($scope.lesLikes);
-
+    // Stockage
     localStorage.setItem("lesLikes", $scope.lesLikes);
 
   };
@@ -194,9 +191,6 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   $scope.nbrPlus = [];
   //Fonction remplissage qui initialise nbrPlus de la forme idUser:Compteur par user
   function remplissage() {
-    if ($scope.utilisateurs == undefined) {
-      return false;
-    }
     for (user of $scope.utilisateurs) {
       var indexUser = user.aydee;
         if (!$scope.nbrPlus[indexUser]) {
