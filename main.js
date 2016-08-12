@@ -123,12 +123,12 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
     }
   };
 
-  // Récupération des données dans le localStorage
-  if (typeof localStorage != undefined) {
-    $scope.save = localStorage.getItem('lesLikes');
+  // Récupération des données dans le sessionStorage
+  if (typeof sessionStorage != undefined) {
+    $scope.save = sessionStorage.getItem('lesLikes');
     $scope.lesLikes = [];
 
-    if (localStorage.lesLikes != null) {
+    if (sessionStorage.lesLikes != null) {
       $scope.save = $scope.save.split(",");
       for (nb of $scope.save) {
         nb = parseInt(nb);
@@ -177,7 +177,7 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
     }
 
     // Stockage
-    localStorage.setItem("lesLikes", $scope.lesLikes);
+    sessionStorage.setItem("lesLikes", $scope.lesLikes);
 
   };
 
