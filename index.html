@@ -48,8 +48,17 @@
               <p ng-hide="!utilisateurs.length">Moyenne d'âge : {{ moyenneAge() }} ans</p>
               <p ng-show="(vieux() > utilisateurs.length/2)">Il y a plus de jeunes que de vieux... Soit {{ vieux() }} personnes de moins de 46 ans</p>
             </div>
-
           </div>
+          
+          <!-- Dropdown Trigger -->
+          <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Utilisateurs en favoris</a>
+
+          <!-- Dropdown Structure -->
+          <ul id='dropdown1' class='dropdown-content'>
+            <li class="divider"></li>
+            <li ng-repeat="utilisateur in utilisateurs | fav:lesLikes"><a href="#!">{{ utilisateur.NomPrenom }}</a></li>
+          </ul>
+
           <div>
             <p>
               Trier par ville : <br>
@@ -157,7 +166,7 @@
               <p>Date de naissance : {{ user.birth }} - {{ user.age }} ans</p>
               <p>Sexe : {{ user.sexe | sexe}}</p>
               <p>Langue : <img ng-src="{{ user.langue | drapeau }}"/></p>
-              <p ng-show="nbrPlus[user.aydee] != 0">Nombre de votes : +{{ nbrPlus[user.aydee] }}</p>
+              <p ng-show="nbrPlus[user.aydee] != undefined">Nombre de votes : +{{ nbrPlus[user.aydee] }}</p>
             </div>
             <div class="card-reveal">
               <p>Ville : {{ user.ville }}</p>

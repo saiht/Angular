@@ -104,6 +104,17 @@ MyApp.filter('drapeau',function(){
    };
 });
 
+
+MyApp.filter('fav', function () {
+  return function (tableau, favoris) {
+    if ($scope.lesLikes != undefined) {
+      return _.intersection(tableau, favoris);
+    }
+    console.log("indéfini");
+  };
+});
+
+
 // Controller START
 MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   //Création d'ue variable title dans la scope
@@ -272,6 +283,7 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
     sessionStorage.setItem("lesLikes", $scope.lesLikes);
 
   };
+
 
 
 
