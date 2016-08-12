@@ -123,12 +123,10 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
     }
   };
 
-
+  // Récupération des données dans le localStorage
   if (typeof localStorage != undefined) {
     $scope.save = localStorage.getItem('lesLikes');
     $scope.lesLikes = [];
-
-
 
     if (localStorage.lesLikes != null) {
       $scope.save = $scope.save.split(",");
@@ -136,10 +134,6 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
         nb = parseInt(nb);
         $scope.lesLikes.push(nb);
       }
-    }
-    else {
-      console.log("Vide");
-      $scope.lesLikes = [];
     }
   }
 
