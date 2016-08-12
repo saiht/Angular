@@ -108,11 +108,13 @@ MyApp.filter('drapeau',function(){
 MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   //Création d'ue variable title dans la scope
   $scope.title = "Exo 3 Gestion de contacts";
+  $scope.nbrUsers = 0;
 
   $http.get('https://jsonblob.com/api/57ac253ae4b0dc55a4ec09eb').success(function (response) {
     $scope.utilisateurs = response;
-      $scope.concatNP();
-      remplissage();
+    $scope.concatNP();
+    remplissage();
+    $scope.nbrUsers = $scope.utilisateurs.length;
   });
 
   // Création d'un attribut NomPrenom pour faciliter les recherches en input text
@@ -121,6 +123,37 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
     for (user of $scope.utilisateurs) {
       user.NomPrenom = user.prenom + " " + user.nom;
     }
+  };
+
+  /**
+   * Ajout utilisateur
+   */
+  $scope.add = function () {
+    $scope.nbrUsers++;
+
+    $scope.utilisateurs.push({
+      nom: $scope.nom,
+      prenom: $scope.prenom,
+      age: parseInt($scope.age),
+      photo: $scope.photo,
+      birth: moment($scope.birth).format('DD/MM/YYYY'),
+      noteBac: parseInt($scope.noteBac),
+      sexe: $scope.sexe,
+      ville: $scope.ville,
+      biographie: $scope.bio,
+      langue: $scope.langue,
+      aydee : $scope.nbrUsers
+   });
+
+   // Vider les champs du formulaire après click sur bouton de création d'user
+   $scope.nom =  $scope.sexe = $scope.ville =  $scope.biographie = $scope.prenom = $scope.age = $scope.photo = $scope.birth = $scope.noteBac = "";
+
+   // Relance les calculs / initialisations
+   $scope.moyenneAge();
+   $scope.concatNP();
+   $scope.moisAnnif();
+   remplissage();
+
   };
 
   // Récupération des données dans le sessionStorage
@@ -175,25 +208,32 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
     else {
       $scope.lesLikes.push(user.aydee);
     }
-
     // Stockage
     sessionStorage.setItem("lesLikes", $scope.lesLikes);
-
   };
 
   // Incrémentation de +1 sur un utilisateur
   $scope.nbrPlus = [];
   //Fonction remplissage qui initialise nbrPlus de la forme idUser:Compteur par user
   function remplissage() {
-    for (user of $scope.utilisateurs) {
-      var indexUser = user.aydee;
-        if (!$scope.nbrPlus[indexUser]) {
-          $scope.nbrPlus[user.aydee] = 0;
-        }
+    // for (user of $scope.utilisateurs) {
+    //   var indexUser = user.aydee;
+    //   if (!$scope.nbrPlus[indexUser]) {
+    //     $scope.nbrPlus[user.aydee] = 0;
+    //   }
+    // }
+    for (var i = 0; i < $scope.nbrUsers; i++) {
+      var indexUser = $scope.utilisateur[i].aydee;
+      if (!$scope.nbrPlus[indexUser]) {
+        $scope.nbrPlus[$scope.utilisateur[i].aydee] = 0;
+      }
     }
   }
   //fonction incrémentation des +1 en fonction des users
   $scope.plusUn = function (userId) {
+    if (!$scope.nbrPlus[userId]) {
+      $scope.nbrPlus[userId] = 0;
+    }
     $scope.nbrPlus[userId]++;
   };
 
@@ -215,38 +255,25 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   + Créer un bouton "remove" à chaque utilisateur permettant au click de supprimer l'utilisateur
   */
   $scope.suppUser = function (user) {
-    var indexUser = $scope.utilisateurs.indexOf(user);
-    $scope.utilisateurs.splice(indexUser, 1);
-    $scope.nbrPlus.splice(indexUser,1);
+    var indexUser;
+    if ($scope.utilisateurs.indexOf(user) != -1) {
+
+      indexUser = $scope.utilisateurs.indexOf(user);
+      $scope.utilisateurs.splice(indexUser, 1);
+      $scope.lesLikes.splice(indexUser,1);
+    }
+
+    if ($scope.lesLikes.indexOf(user.aydee) != -1) {
+
+      indexUser = $scope.lesLikes.indexOf(user.aydee);
+      $scope.lesLikes.splice(indexUser, 1);
+    }
+
+    sessionStorage.setItem("lesLikes", $scope.lesLikes);
+
   };
 
-  /**
-   * Ajout utilisateur
-   */
-  $scope.add = function () {
 
-    $scope.utilisateurs.push({
-      nom: $scope.nom,
-      prenom: $scope.prenom,
-      age: parseInt($scope.age),
-      photo: $scope.photo,
-      birth: moment($scope.birth).format('DD/MM/YYYY'),
-      noteBac: parseInt($scope.noteBac),
-      sexe: $scope.sexe,
-      ville: $scope.ville,
-      biographie: $scope.bio,
-      langue: $scope.langue
-   });
-
-   // Vider les champs du formulaire après click sur bouton de création d'user
-   $scope.nom =  $scope.sexe = $scope.ville =  $scope.biographie = $scope.prenom = $scope.age = $scope.photo = $scope.birth = $scope.noteBac = "";
-
-   // Relance les calculs / initialisations
-   $scope.moyenneAge();
-   $scope.concatNP();
-   $scope.moisAnnif();
-   remplissage();
-  };
 
 
 }]);  // Controller END
