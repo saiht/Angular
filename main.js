@@ -112,7 +112,7 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   $http.get('https://jsonblob.com/api/57ac253ae4b0dc55a4ec09eb').success(function (response) {
     $scope.utilisateurs = response;
       $scope.concatNP();
-      remplissage();
+      // remplissage();
   });
 
   // Création d'un attribut NomPrenom pour faciliter les recherches en input text
@@ -124,6 +124,25 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
   };
 
 
+  if (typeof localStorage != undefined) {
+    $scope.save = localStorage.getItem('lesLikes');
+    $scope.lesLikes = [];
+
+
+
+    if (localStorage.lesLikes != null) {
+      $scope.save = $scope.save.split(",");
+      for (nb of $scope.save) {
+        nb = parseInt(nb);
+        $scope.lesLikes.push(nb);
+      }
+    }
+    else {
+      console.log("Vide");
+      $scope.lesLikes = [];
+      remplissage();
+    }
+  }
 
   // Fonction qui permet d'afficher un cake si le mois d'annif est égal au mois courant
   $scope.moisAnnif = function (user) {
@@ -137,18 +156,15 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
       return false;
   };
 
-
 /**
  * Like ou Dislike en fonction de l'ID de chaque utilisateurs pour changer le logo favorite ou favorite_border
  */
-  $scope.lesLikes = [];   //Tableau des likes comportant les id des users
+  // $scope.lesLikes = [];   //Tableau des likes comportant les id des users
 
   // Fonction permettant d'observer la présence de l'id de user dans le tableau lesLikes
   $scope.estDedans = function (identifiant) {
     $scope.lesLikes = _.uniq($scope.lesLikes);
-
     if ($scope.lesLikes.indexOf(identifiant) != -1) {
-
       return true;
     }
     return false;
@@ -166,12 +182,21 @@ MyApp.controller('MainCtrl', ['$scope','$http', function($scope, $http) {
     else {
       $scope.lesLikes.push(user.aydee);
     }
+
+    // Test Stockage
+    // console.log($scope.lesLikes);
+
+    localStorage.setItem("lesLikes", $scope.lesLikes);
+
   };
 
   // Incrémentation de +1 sur un utilisateur
   $scope.nbrPlus = [];
   //Fonction remplissage qui initialise nbrPlus de la forme idUser:Compteur par user
   function remplissage() {
+    if ($scope.utilisateurs == undefined) {
+      return false;
+    }
     for (user of $scope.utilisateurs) {
       var indexUser = user.aydee;
         if (!$scope.nbrPlus[indexUser]) {
